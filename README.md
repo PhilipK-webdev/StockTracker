@@ -23,6 +23,6 @@
 ## Authors
 
 - Philip Kouchner
-- Hedi Calabrese
+- Hedi Calabrese - @hedical
 - Tracy Nguyen
 - Steven Simon
