@@ -29,54 +29,28 @@
         <a href="#" class="brand-logo light-green-text text-accent-3"
           >$tocksTracker</a
         >
+
         <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li><a href="">Logout</a></li>
+          <li><a href="">Register</a></li>
+          <li><a href="">Login</a></li>
         </ul>
       </div>
     </nav>
-
-    <div class="row container">
-      <!-- TradingView Widget BEGIN -->
-      <div class="tradingview-widget-container">
-        <div class="tradingview-widget-container__widget"></div>
+    <section>
+      <p>The simplest way to track your wealth health</p>
+      <div class="row container">
+        <!-- TradingView Widget BEGIN -->
+        <div class="tradingview-widget-container">
+          <div class="tradingview-widget-container__widget"></div>
+        </div>
+        <!-- TradingView Widget END -->
       </div>
-      <!-- TradingView Widget END -->
-    </div>
+    </section>
 
-    <div class="card large">
-      <div class="col s12 l6 offset-l2">
-        <!-- tabs -->
-        <ul class="tabs">
-          <li class="tab col s6">
-            <a href="#watchlist" class="active grey-text text-darken-3"
-              >My Watchlist</a
-            >
-          </li>
-          <li class="tab col s6">
-            <a href="#virtual" class="grey-text text-darken-3"
-              >Virtual Portfolio</a
-            >
-          </li>
-        </ul>
-        <div id="watchlist" class="col s12">
-          <p class="flow-text grey-text text-darken-3">My Watchlist</p>
-          <p>
-            Insert chart image here
-          </p>
-
-          <p>
-            Insert list of stocks here
-          </p>
-        </div>
-        <div id="virtual" class="col s12">
-          <p class="flow-text grey-text text-darken-3">Virtual Portfolio</p>
-          <p>
-            Insert chart image here
-          </p>
-          <p>
-            Insert list of stocks here
-          </p>
-        </div>
+    <!-- parallax -->
+    <div class="parallax-container">
+      <div class="parallax">
+        <img src="./assets/img/newspaper.jpg" alt="" class="responsive-img" />
       </div>
     </div>
 
@@ -86,7 +60,6 @@
       src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js"
       async
     >
-
         {
         "symbols": [
           {
@@ -120,7 +93,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
     <script>
       $(document).ready(function () {
-        $(".tabs").tabs();
+        $(".parallax").parallax();
       });
     </script>
   </body>
