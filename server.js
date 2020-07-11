@@ -20,6 +20,15 @@ app.use(express.json());
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Client-routes
+const clientRoutes = require("./controller/client-routes");
+app.use(clientRoutes);
+
+// Api-routes
+const apiRoutes = require("./controller/api-routes");
+app.use(apiRoutes);
+
+
 // Connection with the database:
 db.sequelize.sync().then(() => {
     app.listen(PORT, () => console.log(`listening at http://localhost:${PORT}`));
