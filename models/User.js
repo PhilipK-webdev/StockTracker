@@ -3,6 +3,22 @@ const { Op } = require("sequelize");
 
 module.exports = function (sequelize, DataTypes) {
     const User = sequelize.define("User", {
+        first_name: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: true,
+            validtae: {
+                [Op.iRegexp]: '^[h|a|t]',
+            }
+        },
+        last_name: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: true,
+            validtae: {
+                [Op.iRegexp]: '^[h|a|t]',
+            }
+        },
         username: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -24,6 +40,11 @@ module.exports = function (sequelize, DataTypes) {
             allowNull: false,
         },
     });
+    User.associate = (models) => {
+        User.hasMany(models.Stock, {
+            onDelete: "cascade",
+        });
+    };
 
     User.prototype.validPassword = function (password) {
         return bcrypt.compareSync(password, this.password);
