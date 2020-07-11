@@ -5,11 +5,16 @@ const PORT = process.env.PORT || 3000;
 const session = require("express-session");
 const passport = require("passport");
 const db = require("./models");
-
+require("dotenv").config();
 // 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 //app.use(express.static("./client/"));----- just a demo , we need to change the location of the folder of the client 
+
+
+// app.use(
+//     session({ secret: process.env.SECRET, resave: true, saveUninitialized: true })
+//   );
 
 // Authentication:
 app.use(passport.initialize());
