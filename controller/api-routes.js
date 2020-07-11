@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-// const db = require("../models");
-// const passport = require("../config/passport");
+const db = require("../models");
+const passport = require("../config/passport");
 
 // Route to get all stocks from user watchlist
 router.get("/api", (req, res) => {
