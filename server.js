@@ -29,7 +29,7 @@ app.use(apiRoutes);
 
 
 // Connection with the database:
-db.sequelize.sync().then(() => {
-    app.listen(PORT, () => console.log(`listening at http://localhost:${PORT}`));
-});
+// db.sequelize.sync().then(() => {
+app.listen(PORT, () => console.log(`listening at http://localhost:${PORT}`));
+// });
 
