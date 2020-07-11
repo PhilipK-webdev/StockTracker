@@ -11,9 +11,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("../views/client"));
 
-// app.use(
-//     session({ secret: process.env.SECRET, resave: true, saveUninitialized: true })
-//   );
+app.use(
+    session({ secret: process.env.SECRET, resave: true, saveUninitialized: true });
+);
 
 // Authentication:
 app.use(passport.initialize());
