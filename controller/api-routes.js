@@ -6,7 +6,7 @@ router.get("/api", (req, res) => {
     seeAllstocks()
         .then((allStocks) => res.json(allStocks))
         .catch((err) => res.send(err))
-})
+});
 
 // Route to get a single stock information
 router.get("/api/find:symbol", (req, res) => {
@@ -14,7 +14,7 @@ router.get("/api/find:symbol", (req, res) => {
     showStock(symbol)
         .then((stockSymbol) => res.json(stockSymbol))
         .catch((err) => res.send(err))
-})
+});
 
 // Route to delete stock from watchlist
 router.get("/api/delete:symbol", (req, res) => {
@@ -22,6 +22,6 @@ router.get("/api/delete:symbol", (req, res) => {
     deleteStock(symbol)
         .then((stockSymbol) => res.json(stockSymbol))
         .catch((err) => res.send(err))
-})
+});
 
 module.exports = router;
