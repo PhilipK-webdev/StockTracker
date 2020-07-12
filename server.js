@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(express.static("../views/client"));
 
 app.use(
-    session({ secret: process.env.SECRET, resave: true, saveUninitialized: true });
+    session({ secret: process.env.SECRET, resave: true, saveUninitialized: true })
 );
 
 // Authentication:
