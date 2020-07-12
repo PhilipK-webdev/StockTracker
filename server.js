@@ -9,7 +9,7 @@ require("dotenv").config();
 // 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static("../views/client"));
+app.use(express.static("./client"));
 
 app.use(
     session({ secret: process.env.SECRET, resave: true, saveUninitialized: true })
