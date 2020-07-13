@@ -36,12 +36,12 @@ router.post("/api/register", (req, res) => {
         username: req.body.username,
         email: req.body.email,
         password: req.body.password,
-    })
-        .then(() => {
-            res.json({ msg: "success" });
-            res.redirect(307, "/api/login");
-        })
-        .catch((err) => res.status(401).json(err));
+    }).then(() => {
+        res.json({ msg: "success" });
+        res.redirect(307, "/api/login");
+
+    }).catch((err) => res.status(401).json(err));
+
 });
 
 router.get("/logout", (req, res) => {
