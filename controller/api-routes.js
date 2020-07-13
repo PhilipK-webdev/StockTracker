@@ -35,7 +35,7 @@ const userStocks = [
 // example GET : http://localhost:3000/api/external
 router.get("/api/external", (req, res) => {
     seeAllstocks(userStocks)
-        .then((resp) => res.json({ resp }))
+        .then((stocksValue) => res.json({ stocksValue }))
         .catch((err) => res.send(err))
 });
 
@@ -46,19 +46,25 @@ router.get("/api/external", (req, res) => {
 router.get("/api/external/stocks/:symbol", (req, res) => {
     const symbol = req.params.symbol;
     seeOnestock(symbol)
-        .then((resp) => res.json({ resp }))
+        .then((stockValue) => res.json({ stockValue }))
         .catch((err) => res.send(err))
 });
 
+// Route to add stock in user's watchlist
+// example POST : http://localhost:3000/api/users/hedical/stocks/MSFT
+router.post("/api/users/:username/stocks/:symbol", (req, res) => {
+    db.Stock.addStock(req.params.username, req.params.symbol, "cpName", 1, 2)
+        .then(() => res.send({ msg: "successfully added" }))
+        .catch((err) => res.send(err))
+});
+
+
 // Route to delete stock from watchlist
 // example DELETE : http://localhost:3000/api/users/hedical/stocks/MSFT
-router.delete("/api/users/:user_id/stocks/:symbol", (req, res) => {
-    db.Stock.destroy({
-        where: {
-            symbol: req.params.symbol
-        },
-        include: []
-    })
+router.delete("/api/users/:username/stocks/:symbol", (req, res) => {
+    db.Stock.deleteStock(req.params.username, req.params.symbol)
+        .then(() => res.send({ msg: "successfully deleted" }))
+        .catch((err) => res.send(err))
 });
 
 
