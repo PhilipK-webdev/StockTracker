@@ -15,7 +15,7 @@
     />
     <style>
       body {
-        background-image: url("./assets/img/newspaper.jpg");
+        background-image: url("./assets/img/screens.jpg");
         background-size: cover;
         background-color: #212121;
       }
@@ -23,29 +23,29 @@
         width: 100%;
         height: 100%;
       }
-      .login {
+      .register {
         margin-top: 100px;
         color: white;
       }
-      .login .card {
+      .register .card {
         opacity: 0.75;
       }
-      .login h4 {
+      .register h4 {
         color: #76ff03;
       }
-      .login label {
+      .register label {
         font-size: 16px;
         color: rgb(100, 100, 100);
       }
-      .login input {
+      .register input {
         font-size: 22px !important;
         color: rgb(100, 100, 100);
       }
-      .login #btn_login:hover {
+      .register #btn_login:hover {
         color: #76ff03;
         padding: 0px 40px;
       }
-      .login #btn_return:hover {
+      .register #btn_return:hover {
         color: #424242;
         padding: 0px 40px;
       }
@@ -109,41 +109,56 @@
       </div>
     </nav>
 
-    <!-- Login form -->
-    <div class="row login">
+    <!-- Register form -->
+    <div class="row register">
       <div class="col s12 l4 offset-l4">
         <div class="card">
           <div class="card-action">
-            <h4>Login</h4>
+            <h4>Register</h4>
           </div>
           <div class="card-content">
-            <div class="form-field">
-              <label for="username">Username</label>
-              <input type="text" id="username" />
+            <div class="row">
+              <div class="input-field col s6">
+                <input id="first_name" type="text" class="validate" />
+                <label for="first_name">First Name</label>
+              </div>
+              <div class="input-field col s6">
+                <input id="last_name" type="text" class="validate" />
+                <label for="last_name">Last Name</label>
+              </div>
             </div>
-            <br />
-            <div class="form-field">
-              <label for="password">Password</label>
-              <input type="password" id="password" />
+            <div class="row">
+              <div class="input-field col s12">
+                <input id="email" type="email" class="validate" />
+                <label for="email">Email</label>
+              </div>
             </div>
-            <br />
-            <div class="form-field">
-              <input
-                type="checkbox"
-                class="filled-in"
-                checked="checked"
-                id="remember"
-              />
+
+            <div class="row">
+              <div class="input-field col s12">
+                <input id="username" type="text" class="validate" />
+                <label for="username">Username</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <input id="password" type="password" class="validate" />
+                <label for="password">Password</label>
+              </div>
+            </div>
+
+            <!-- <div class="form-field">
+              <input type="checkbox" id="remember" />
               <label for="remember">Remember me</label>
             </div>
-            <br />
+            <br /> -->
             <div class="form-field">
               <button
                 class="btn-large light green waves-effect waves-dark"
                 style="width: 100%;"
-                id="btn_login"
+                id="btn_register"
               >
-                Login
+                Register
               </button>
             </div>
             <br />
