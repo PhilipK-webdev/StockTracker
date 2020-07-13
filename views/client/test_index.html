@@ -17,10 +17,14 @@
       body {
         background-image: url("./assets/img/newspaper.jpg");
         background-size: cover;
+        background-color: #212121;
+      }
+      body img {
+        width: 100%;
+        height: 100%;
       }
       .login {
         margin-top: 100px;
-        max-width: 400px;
         color: white;
       }
       .login .card {
@@ -107,7 +111,7 @@
 
     <!-- Login form -->
     <div class="row login">
-      <div class="col s12 14 offset-14">
+      <div class="col s12 l4 offset-l4">
         <div class="card">
           <div class="card-action">
             <h4>Login</h4>
@@ -124,7 +128,12 @@
             </div>
             <br />
             <div class="form-field">
-              <input type="checkbox" id="remember" />
+              <input
+                type="checkbox"
+                class="filled-in"
+                checked="checked"
+                id="remember"
+              />
               <label for="remember">Remember me</label>
             </div>
             <br />

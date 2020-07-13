@@ -1,129 +1,193 @@
-<!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css"
+    />
+    <link rel="stylesheet" href="/views/client/assets/style/index.css" />
+    <!--Import Google Icon Font-->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
     <style>
       body {
-        font-family: Arial, Helvetica, sans-serif;
+        background-image: url("./assets/img/screens.jpg");
+        background-size: cover;
+        background-color: #212121;
       }
-      * {
-        box-sizing: border-box;
-      }
-
-      /* Button used to open the contact form - fixed at the bottom of the page */
-      .open-button {
-        background-color: #555;
-        color: white;
-        padding: 16px 20px;
-        border: none;
-        cursor: pointer;
-        opacity: 0.8;
-        position: fixed;
-        bottom: 23px;
-        right: 28px;
-        width: 280px;
-      }
-
-      /* The popup form - hidden by default */
-      .form-popup {
-        display: none;
-        position: fixed;
-        bottom: 0;
-        right: 15px;
-        border: 3px solid #f1f1f1;
-        z-index: 9;
-      }
-
-      /* Add styles to the form container */
-      .form-container {
-        max-width: 300px;
-        padding: 10px;
-        background-color: white;
-      }
-
-      /* Full-width input fields */
-      .form-container input[type="text"],
-      .form-container input[type="password"] {
+      body img {
         width: 100%;
-        padding: 15px;
-        margin: 5px 0 22px 0;
-        border: none;
-        background: #f1f1f1;
+        height: 100%;
       }
-
-      /* When the inputs get focus, do something */
-      .form-container input[type="text"]:focus,
-      .form-container input[type="password"]:focus {
-        background-color: #ddd;
-        outline: none;
-      }
-
-      /* Set a style for the submit/login button */
-      .form-container .btn {
-        background-color: #4caf50;
+      .register {
+        margin-top: 100px;
         color: white;
-        padding: 16px 20px;
-        border: none;
-        cursor: pointer;
-        width: 100%;
-        margin-bottom: 10px;
-        opacity: 0.8;
       }
-
-      /* Add a red background color to the cancel button */
-      .form-container .cancel {
-        background-color: red;
+      .register .card {
+        opacity: 0.75;
       }
-
-      /* Add some hover effects to buttons */
-      .form-container .btn:hover,
-      .open-button:hover {
-        opacity: 1;
+      .register h4 {
+        color: #76ff03;
+      }
+      .register label {
+        font-size: 16px;
+        color: rgb(100, 100, 100);
+      }
+      .register input {
+        font-size: 22px !important;
+        color: rgb(100, 100, 100);
+      }
+      .register #btn_login:hover {
+        color: #76ff03;
+        padding: 0px 40px;
+      }
+      .register #btn_return:hover {
+        color: #424242;
+        padding: 0px 40px;
       }
     </style>
+
+    <title>StocksTracker</title>
   </head>
   <body>
-    <h2>Popup Form</h2>
-    <p>
-      Click on the button at the bottom of this page to open the login form.
-    </p>
-    <p>
-      Note that the button and the form is fixed - they will always be
-      positioned to the bottom of the browser window.
-    </p>
+    <!-- Ticker-tape widget header - BEGINS -->
+    <header class="conatiner-outer">
+      <!-- <div class="container-inner"> -->
+      <div class="container-width">
+        <script
+          type="text/javascript"
+          src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js"
+          async
+        >
+          {
+              "symbols": [
+                  {
+                      "proName": "FOREXCOM:SPXUSD",
+                      "title": "S&P 500"
+                  },
+                  {
+                      "proName": "FOREXCOM:NSXUSD",
+                      "title": "Nasdaq 100"
+                  },
+                  {
+                      "proName": "FX_IDC:EURUSD",
+                      "title": "EUR/USD"
+                  },
+                  {
+                      "proName": "BITSTAMP:BTCUSD",
+                      "title": "BTC/USD"
+                  },
+                  {
+                      "proName": "BITSTAMP:ETHUSD",
+                      "title": "ETH/USD"
+                  }
+              ],
+                  "colorTheme": "dark",
+                      "isTransparent": false,
+                          "displayMode": "adaptive",
+                              "locale": "en"
+          }
+        </script>
+      </div>
+      <!-- </div> -->
+    </header>
+    <!-- Ticker-tape widget header - ENDS -->
 
-    <button class="open-button" onclick="openForm()">Open Form</button>
+    <nav>
+      <div class="nav-wrapper grey darken-4" style="padding-left: 30px;">
+        <a href="#" class="brand-logo light-green-text text-accent-3"
+          >$tocksTracker</a
+        >
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><a href="">REGISTER</a></li>
+          <li><a href="">LOGIN</a></li>
+        </ul>
+      </div>
+    </nav>
 
-    <div class="form-popup" id="myForm">
-      <form action="/action_page.php" class="form-container">
-        <h1>Login</h1>
+    <!-- Register form -->
+    <div class="row register">
+      <div class="col s12 l4 offset-l4">
+        <div class="card">
+          <div class="card-action">
+            <h4>Register</h4>
+          </div>
+          <div class="card-content">
+            <div class="row">
+              <div class="input-field col s6">
+                <input id="first_name" type="text" class="validate" />
+                <label for="first_name">First Name</label>
+              </div>
+              <div class="input-field col s6">
+                <input id="last_name" type="text" class="validate" />
+                <label for="last_name">Last Name</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <input id="email" type="email" class="validate" />
+                <label for="email">Email</label>
+              </div>
+            </div>
 
-        <label for="email"><b>Email</b></label>
-        <input type="text" placeholder="Enter Email" name="email" required />
+            <div class="row">
+              <div class="input-field col s12">
+                <input id="username" type="text" class="validate" />
+                <label for="username">Username</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <input id="password" type="password" class="validate" />
+                <label for="password">Password</label>
+              </div>
+            </div>
 
-        <label for="psw"><b>Password</b></label>
-        <input
-          type="password"
-          placeholder="Enter Password"
-          name="psw"
-          required
-        />
-
-        <button type="submit" class="btn">Login</button>
-        <button type="button" class="btn cancel" onclick="closeForm()">
-          Close
-        </button>
-      </form>
+            <!-- <div class="form-field">
+              <input type="checkbox" id="remember" />
+              <label for="remember">Remember me</label>
+            </div>
+            <br /> -->
+            <div class="form-field">
+              <button
+                class="btn-large light green waves-effect waves-dark"
+                style="width: 100%;"
+                id="btn_register"
+              >
+                Register
+              </button>
+            </div>
+            <br />
+            <div class="form-field">
+              <button
+                class="btn-large grey darken-3"
+                style="width: 100%;"
+                id="btn_return"
+              >
+                Return to Homepage
+              </button>
+            </div>
+            <br />
+          </div>
+        </div>
+      </div>
     </div>
 
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+      crossorigin="anonymous"
+    ></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
     <script>
-      function openForm() {
-        document.getElementById("myForm").style.display = "block";
-      }
-
-      function closeForm() {
-        document.getElementById("myForm").style.display = "none";
-      }
+      $(document).ready(function () {
+        $(".sidenav").sidenav();
+      });
     </script>
   </body>
 </html>
