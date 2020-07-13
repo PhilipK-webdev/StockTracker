@@ -1,100 +1,93 @@
 const express = require("express");
 const router = express.Router();
-<<<<<<< HEAD
 const db = require("../models");
 const passport = require("../config/passport");
-=======
 const axios = require("axios");
-// const db = require("../models");
-// const passport = require("../config/passport");
->>>>>>> added code for api_routes
+const { seeAllstocks, seeOnestock } = require("../model/externalStockAPI")
+// const APIkey = "FQJSY871UTA3P2BK" // Alpha Vintage no longer used
+const tokenIEX = "pk_723f0373466e46fa8549c7f632ef69f1" //IEX
 
-const APIkey = "FQJSY871UTA3P2BK"
 
-const userSymbolsTests = [
+// https://cloud.iexapis.com/
+// https://sandbox.iexapis.com/stable/stock/AAPL/quote?token=Tpk_f63c19d19f524943b1e79eb433ad1130
+// https://cloud.iexapis.com/stable/stock/AAPL/quote?token=pk_723f0373466e46fa8549c7f632ef69f1
+
+// Test object
+
+const userStocks = [
     {
         symbol: "AAPL",
-        company: "Apple"
+        company_name: "Apple",
+        initial_value: 330.61,
+        last_value: 333.68,
+        shares: 4
     },
     {
         symbol: "IBM",
-        company: "IBM"
+        company_name: "IBM",
+        initial_value: 110.37,
+        last_value: 118.35,
+        shares: 7
     },
 ]
 
 // Route to get all stocks from user watchlist
-router.get("/api", (req, res) => {
-    const seeAllstocks = (userSymbols) => {
-        return new Promise((resolve, reject) => {
-            symbolArray = userSymbols.map(a => { return { symbol: a.symbol } })
-            res.json(console.log(symbolArray));
-
-            symbolArray.forEach((symbol) => {
-                console.log(symbol.symbol);
-
-                $.ajax({
-                    type: "GET",
-                    url: `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${symbol.symbol}&interval=5min&apikey=${APIkey}`,
-                }).then((response) => {
-                    console.log(response);
-                    resolve(response);
-                })
-
-            });
-        });
-    };
-
-    seeAllstocks(userSymbolsTests)
-        .then((allStocks) => {
-            res.json(allStocks)
-        })
+// example GET : http://localhost:3000/api/external
+router.get("/api/external", (req, res) => {
+    seeAllstocks(userStocks)
+        .then((resp) => res.json({ resp }))
         .catch((err) => res.send(err))
 });
 
+
 // Route to get a single stock information
-router.get("/api/find:symbol", (req, res) => {
-    const symbol = req.params.symbol
-    showStock(symbol)
-        .then((stockSymbol) => res.json(stockSymbol))
+// example GET : http://localhost:3000/api/external/stocks/MSFT
+
+router.get("/api/external/stocks/:symbol", (req, res) => {
+    const symbol = req.params.symbol;
+    seeOnestock(symbol)
+        .then((resp) => res.json({ resp }))
         .catch((err) => res.send(err))
 });
 
 // Route to delete stock from watchlist
-router.get("/api/delete:symbol", (req, res) => {
-    const symbol = req.params.symbol
-    deleteStock(symbol)
-        .then((stockSymbol) => res.json(stockSymbol))
-        .catch((err) => res.send(err))
+// example DELETE : http://localhost:3000/api/users/hedical/stocks/MSFT
+router.delete("/api/users/:user_id/stocks/:symbol", (req, res) => {
+    db.Stock.destroy({
+        where: {
+            symbol: req.params.symbol
+        },
+        include: []
+    })
 });
 
-// router.get("/api", (req, res) => {
-//     res.send({ msg: "success" });
-// });
 
-// router.post("/api/login", passport.authenticate("local"), (req, res) => {
-//     res.json({ email: req.user.email, id: req.user.id });
-// });
+// Route for user
+router.post("/api/login", passport.authenticate("local"), (req, res) => { // to modify
+    res.json({ username: req.user.username, id: req.user.id });
+});
 
-// router.post("/api/signup", (req, res) => {
-//     db.User.create({ email: req.body.email, password: req.body.password })
-//         .then(() => {
-//             res.redirect(307, "/api/login");
-//         })
-//         .catch((err) => res.status(401).json(err));
-// });
+router.post("/api/register", (req, res) => { // to modify
+    db.User.create({ email: req.body.email, password: req.body.password, first_name: req.body })
+        .then(() => {
+            res.redirect(307, "/api/login");
+        })
+        .catch((err) => res.status(401).json(err));
+});
 
-// router.get("/logout", (req, res) => {
-//     req.logout();
-//     res.redirect("/");
-// });
+router.get("/logout", (req, res) => {
+    req.logout();
+    res.redirect("/");
+});
 
-// router.get("/api/user_data", (req, res) => {
-//     !req.user
-//         ? res.json({})
-//         : res.json({
-//             email: req.user.email,
-//             id: req.user.id,
-//         });
-// });
+router.get("/api/user_data", (req, res) => { // to modify
+    !req.user
+        ? res.json({})
+        : res.json({
+            email: req.user.email,
+            id: req.user.id,
+            // stocks: 
+        });
+});
 
 module.exports = router;
