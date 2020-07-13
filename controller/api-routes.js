@@ -70,6 +70,7 @@ router.post("/api/login", passport.authenticate("local"), (req, res) => { // to 
 router.post("/api/register", (req, res) => { // to modify
     db.User.create({ email: req.body.email, password: req.body.password, first_name: req.body })
         .then(() => {
+            res.json({ msg: "success" });
             res.redirect(307, "/api/login");
         })
         .catch((err) => res.status(401).json(err));

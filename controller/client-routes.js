@@ -1,21 +1,24 @@
 const express = require("express");
 const router = express.Router();
 const path = require("path");
+const isAuthenticated = require("../config/middleware/isAuthenticated");
 
-
-// Client-route to access index page
 router.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "../views/client/index.html"))
-})
+    if (req.user) {
+        res.redirect("/dashbord");
+    }
+    res.sendFile(path.join(__dirname, "../client/index.html"));
+});
 
-// Client-route to access personal page
-router.get("/mystocks", (req, res) => {
-    res.sendFile(path.join(__dirname, "../views/client/mystocks.html"))
-})
+router.get("/login", (req, res) => {
+    if (req.user) {
+        res.redirect("/dashbord");
+    }
+    res.sendFile(path.join(__dirname, "../client/login.html"));
+});
 
-// Client-route to access a specific stock information
-router.get("/stockinfo", (req, res) => {
-    res.sendFile(path.join(__dirname, "../views/client/stockinfo.html"))
-})
+router.get("/dashbord", isAuthenticated, (req, res) => {
+    res.sendFile(path.join(__dirname, "../client/dashbord.html"));
+});
 
 module.exports = router;
