@@ -72,22 +72,21 @@
       </div>
     </header>
     <!-- Ticker-tape widget header - ENDS -->
-    <div class="navbar-fixed">
-      <nav>
-        <div class="nav-wrapper grey darken-4" style="padding-left: 30px;">
-          <a href="index.html" class="brand-logo light-green-text text-accent-3"
-            >$tockTracker</a
-          >
-          <a href="#" class="sidenav-trigger" data-target="mobile_menu"
-            ><i class="material-icons">menu</i></a
-          >
-          <ul class="hide-on-med-and-down right">
-            <li><a href="register.html">REGISTER</a></li>
-            <li><a href="login.html">LOGIN</a></li>
-          </ul>
-        </div>
-      </nav>
-    </div>
+
+    <nav>
+      <div class="nav-wrapper grey darken-4" style="padding-left: 30px;">
+        <a href="index.html" class="brand-logo light-green-text text-accent-3"
+          >$tockTracker</a
+        >
+        <a href="#" class="sidenav-trigger" data-target="mobile_menu"
+          ><i class="material-icons">menu</i></a
+        >
+        <ul class="hide-on-med-and-down right">
+          <li><a href="register.html">REGISTER</a></li>
+          <li><a href="login.html">LOGIN</a></li>
+        </ul>
+      </div>
+    </nav>
 
     <ul class="sidenav" id="mobile_menu">
       <li><a href="register.html">REGISTER</a></li>
@@ -96,8 +95,6 @@
 
     <script>
       $(document).ready(function () {
-        // $(".sidenav").sidenav();
-        console.log($(".sidenav"));
         $(".sidenav").sidenav();
       });
     </script>
