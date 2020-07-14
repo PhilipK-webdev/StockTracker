@@ -112,7 +112,6 @@ router.post("/api/register", (req, res) => {
     })
         .then(() => {
             res.json({ msg: "success" });
-            res.redirect(307, "/api/login");
         })
         .catch((err) => res.status(401).json(err));
 });

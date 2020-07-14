@@ -13,8 +13,8 @@ $(document).ready(function () {
             data: UserLogin
         }).then(res => {
             console.log(res);
-            window.location.href = "dashboard.html";
-        }).catch(err => console.lgo(err));
-    })
+            // window.location.href = "/dashboard.html";
+        }).catch(err => console.log(err));
+    });
 });
 
