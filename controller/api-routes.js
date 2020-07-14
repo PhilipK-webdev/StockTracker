@@ -90,14 +90,17 @@ router.post("/api/login", passport.authenticate("local"), (req, res) => { // to 
     res.json({ username: req.user.username, id: req.user.id });
 });
 
-// Route for register
-router.post("/api/register", (req, res) => { // to modify
-    db.User.create({ email: req.body.email, password: req.body.password, first_name: req.body })
-        .then(() => {
-            res.json({ msg: "success" });
-            res.redirect(307, "/api/login");
-        })
-        .catch((err) => res.status(401).json(err));
+router.post("/api/register", (req, res) => {
+    db.User.create({
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        username: req.body.username,
+        email: req.body.email,
+        password: req.body.password,
+    }).then(() => {
+        res.json({ msg: "success" });
+    }).catch((err) => res.status(401).json(err));
+
 });
 
 
