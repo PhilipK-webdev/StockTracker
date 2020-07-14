@@ -4,13 +4,8 @@ const db = require("../models");
 const passport = require("../config/passport");
 const axios = require("axios");
 const { seeAllstocks, seeOnestock } = require("../model/externalStockAPI")
-// const APIkey = "FQJSY871UTA3P2BK" // Alpha Vintage no longer used
-const tokenIEX = "pk_723f0373466e46fa8549c7f632ef69f1" //IEX
-
-
-// https://cloud.iexapis.com/
-// https://sandbox.iexapis.com/stable/stock/AAPL/quote?token=Tpk_f63c19d19f524943b1e79eb433ad1130
-// https://cloud.iexapis.com/stable/stock/AAPL/quote?token=pk_723f0373466e46fa8549c7f632ef69f1
+const { getCompanyLogo } = require("../model/externalLogoAPI");
+const { getTopHeadlines } = require("../model/externalNewsAPI");
 
 // Test object
 
@@ -31,14 +26,16 @@ const userStocks = [
     },
 ]
 
-// Route to get all stocks from user watchlist
+// STOCKS API
+
+// Route to get all stocks from user watchlist --> We only get the closing value out of this api, but it is possible to resolve the entire stock information
+
 // example GET : http://localhost:3000/api/external
 router.get("/api/external", (req, res) => {
     seeAllstocks(userStocks)
         .then((stocksValue) => res.json({ stocksValue }))
         .catch((err) => res.send(err))
 });
-
 
 // Route to get a single stock information
 // example GET : http://localhost:3000/api/external/stocks/MSFT
@@ -67,12 +64,33 @@ router.delete("/api/users/:username/stocks/:symbol", (req, res) => {
         .catch((err) => res.send(err))
 });
 
+// NEWS API
+// example GET : http://localhost:3000/api/news/apple
+router.get("/api/news/:company", (req, res) => {
+    const companyName = req.params.company;
+    getTopHeadlines(companyName)
+        .then((articles) => res.json({ articles }))
+        .catch((err) => res.send(err))
+})
 
-// Route for user
+// LOGO API
+
+// example GET : http://localhost:3000/api/logo/AAPL
+router.get("/api/logo/:symbol", (req, res) => {
+    const symbol = req.params.symbol;
+    getCompanyLogo(symbol)
+        .then((companyLogo) => res.json({ companyLogo }))
+        .catch((err) => res.send(err))
+})
+
+// USER ROUTES
+
+// Route for login
 router.post("/api/login", passport.authenticate("local"), (req, res) => { // to modify
     res.json({ username: req.user.username, id: req.user.id });
 });
 
+// Route for register
 router.post("/api/register", (req, res) => { // to modify
     db.User.create({ email: req.body.email, password: req.body.password, first_name: req.body })
         .then(() => {
@@ -82,11 +100,14 @@ router.post("/api/register", (req, res) => { // to modify
         .catch((err) => res.status(401).json(err));
 });
 
+
+// Route for logout
 router.get("/logout", (req, res) => {
     req.logout();
     res.redirect("/");
 });
 
+// Route for user info
 router.get("/api/user_data", (req, res) => { // to modify
     !req.user
         ? res.json({})
