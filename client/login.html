@@ -12,9 +12,10 @@
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
     />
+    <!-- <link rel="stylesheet" href="./assets/style/style.css" /> -->
     <style>
       body {
-        background-image: url("./assets/img/screens.jpg");
+        background-image: url("./assets/img/newspaper.jpg");
         background-size: cover;
         background-color: #212121;
       }
@@ -24,35 +25,35 @@
         height: 100%;
       }
 
-      .register {
+      .login {
         margin-top: 100px;
         color: white;
       }
 
-      .register .card {
+      .login .card {
         opacity: 0.75;
       }
 
-      .register h4 {
+      .login h4 {
         color: #76ff03;
       }
 
-      .register label {
+      .login label {
         font-size: 16px;
         color: rgb(100, 100, 100);
       }
 
-      .register input {
+      .login input {
         font-size: 22px !important;
         color: rgb(100, 100, 100);
       }
 
-      .register #btn_login:hover {
+      .login #btn_login:hover {
         color: #76ff03;
         padding: 0px 40px;
       }
 
-      .register #btn_return:hover {
+      .login #btn_return:hover {
         color: #424242;
         padding: 0px 40px;
       }
@@ -111,63 +112,47 @@
           >$tocksTracker</a
         >
         <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li><a href="#">REGISTER</a></li>
-          <li><a href="login.html">LOGIN</a></li>
+          <li><a href="./register.html">REGISTER</a></li>
+          <li><a href="#">LOGIN</a></li>
         </ul>
       </div>
     </nav>
 
-    <!-- Register form -->
-    <div class="row register">
+    <!-- Login form -->
+    <div class="row login">
       <div class="col s12 l4 offset-l4">
         <div class="card">
           <div class="card-action">
-            <h4>Register</h4>
+            <h4>Login</h4>
           </div>
           <div class="card-content">
-            <div class="row">
-              <div class="input-field col s6">
-                <input id="first_name" type="text" class="validate" />
-                <label for="first_name">First Name</label>
-              </div>
-              <div class="input-field col s6">
-                <input id="last_name" type="text" class="validate" />
-                <label for="last_name">Last Name</label>
-              </div>
+            <div class="form-field">
+              <label for="username">Username</label>
+              <input type="text" id="username" />
             </div>
-            <div class="row">
-              <div class="input-field col s12">
-                <input id="email" type="email" class="validate" />`
-                <label for="email">Email</label>
-              </div>
+            <br />
+            <div class="form-field">
+              <label for="password">Password</label>
+              <input type="password" id="password" />
             </div>
-
-            <div class="row">
-              <div class="input-field col s12">
-                <input id="username" type="text" class="validate" />
-                <label for="username">Username</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="input-field col s12">
-                <input id="password" type="password" class="validate" />
-                <label for="password">Password</label>
-              </div>
-            </div>
-
-            <!-- <div class="form-field">
-              <input type="checkbox" id="remember" />
+            <br />
+            <div class="form-field">
+              <input
+                type="checkbox"
+                class="filled-in"
+                checked="checked"
+                id="remember"
+              />
               <label for="remember">Remember me</label>
             </div>
-            <br /> -->
+            <br />
             <div class="form-field">
               <button
                 class="btn-large light green waves-effect waves-dark"
                 style="width: 100%;"
-                id="btn_register"
-                type="submit"
+                id="btn_login"
               >
-                Register
+                Login
               </button>
             </div>
             <br />
@@ -188,16 +173,21 @@
 
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
-    <!-- <script>
-    $(document).ready(function () {
-      $(".sidenav").sidenav();
-    });
-  </script> -->
+    <script
+      src="https://code.jquery.com/jquery-3.5.0.slim.js"
+      integrity="sha256-sCexhaKpAfuqulKjtSY7V9H7QT0TCN90H+Y5NlmqOUE="
+      crossorigin="anonymous"
+    ></script>
     <script
       src="https://code.jquery.com/jquery-3.5.1.min.js"
       integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
       crossorigin="anonymous"
     ></script>
-    <script src="./assets/register.js"></script>
+    <script src="./assets/index.js"></script>
+    <!-- <script>
+    $(document).ready(function () {
+      $(".sidenav").sidenav();
+    });
+  </script> -->
   </body>
 </html>
