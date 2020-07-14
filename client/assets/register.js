@@ -21,6 +21,11 @@ $(document).ready(function () {
             window.location.href = "/";
         }).catch(err => console.log(err));
     });
+    $("#btn_return").on("click", function (event) {
+        event.preventDefault();
+        window.location.href = "index.html";
+    });
+
 });
 
 const register = (User) => {
