@@ -7,10 +7,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css" />
   <!--Import Google Icon Font-->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-  <link rel="stylesheet" href="./assets/style/style.css" />
   <style>
     body {
-      background-image: url("./assets/img/newspaper.jpg");
+      background-image: url("./assets/img/screens.jpg");
       background-size: cover;
       background-color: #212121;
     }
@@ -20,35 +19,35 @@
       height: 100%;
     }
 
-    .login {
+    .register {
       margin-top: 100px;
       color: white;
     }
 
-    .login .card {
+    .register .card {
       opacity: 0.75;
     }
 
-    .login h4 {
+    .register h4 {
       color: #76ff03;
     }
 
-    .login label {
+    .register label {
       font-size: 16px;
       color: rgb(100, 100, 100);
     }
 
-    .login input {
+    .register input {
       font-size: 22px !important;
       color: rgb(100, 100, 100);
     }
 
-    .login #btn_login:hover {
+    .register #btn_login:hover {
       color: #76ff03;
       padding: 0px 40px;
     }
 
-    .login #btn_return:hover {
+    .register #btn_return:hover {
       color: #424242;
       padding: 0px 40px;
     }
@@ -102,38 +101,59 @@
     <div class="nav-wrapper grey darken-4" style="padding-left: 30px;">
       <a href="#" class="brand-logo light-green-text text-accent-3">$tocksTracker</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="./test_register.html">REGISTER</a></li>
-        <li><a href="./test_login.html">LOGIN</a></li>
+        <li><a href="">REGISTER</a></li>
+        <li><a href="">LOGIN</a></li>
       </ul>
     </div>
   </nav>
 
-  <!-- Login form -->
-  <div class="row login">
+  <!-- Register form -->
+  <div class="row register">
     <div class="col s12 l4 offset-l4">
       <div class="card">
         <div class="card-action">
-          <h4>Login</h4>
+          <h4>Register</h4>
         </div>
         <div class="card-content">
-          <div class="form-field">
-            <label for="username">Username</label>
-            <input type="text" id="username" />
+          <div class="row">
+            <div class="input-field col s6">
+              <input id="first_name" type="text" class="validate" />
+              <label for="first_name">First Name</label>
+            </div>
+            <div class="input-field col s6">
+              <input id="last_name" type="text" class="validate" />
+              <label for="last_name">Last Name</label>
+            </div>
           </div>
-          <br />
-          <div class="form-field">
-            <label for="password">Password</label>
-            <input type="password" id="password" />
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="email" type="email" class="validate" />`
+              <label for="email">Email</label>
+            </div>
           </div>
-          <br />
-          <div class="form-field">
-            <input type="checkbox" class="filled-in" checked="checked" id="remember" />
-            <label for="remember">Remember me</label>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="username" type="text" class="validate" />
+              <label for="username">Username</label>
+            </div>
           </div>
-          <br />
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="password" type="password" class="validate" />
+              <label for="password">Password</label>
+            </div>
+          </div>
+
+          <!-- <div class="form-field">
+              <input type="checkbox" id="remember" />
+              <label for="remember">Remember me</label>
+            </div>
+            <br /> -->
           <div class="form-field">
-            <button class="btn-large light green waves-effect waves-dark" style="width: 100%;" id="btn_login">
-              Login
+            <button class="btn-large light green waves-effect waves-dark" style="width: 100%;" id="btn_register"
+              type="submit">
+              Register
             </button>
           </div>
           <br />
@@ -148,18 +168,17 @@
     </div>
   </div>
 
+
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.5.0.slim.js"
-    integrity="sha256-sCexhaKpAfuqulKjtSY7V9H7QT0TCN90H+Y5NlmqOUE=" crossorigin="anonymous"></script>
-  <script src="https://code.jquery.com/jquery-3.5.1.min.js"
-    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-  <script src="./assets/index.js"></script>
   <!-- <script>
     $(document).ready(function () {
       $(".sidenav").sidenav();
     });
   </script> -->
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+  <script src="./assets/register.js"></script>
 </body>
 
 </html>
