@@ -7,14 +7,14 @@ router.get("/", (req, res) => {
     if (req.user) {
         res.redirect("/dashbord");
     }
-    res.sendFile(path.join(__dirname, "../client/test_index.html"));
+    res.sendFile(path.join(__dirname, "../client/index.html"));
 });
 
 router.get("/login", (req, res) => {
     if (req.user) {
         res.redirect("/dashbord");
     }
-    res.sendFile(path.join(__dirname, "../client/test_login.html"));
+    res.sendFile(path.join(__dirname, "../client/login.html"));
 });
 
 router.get("/dashbord", isAuthenticated, (req, res) => {
