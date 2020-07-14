@@ -1,3 +1,5 @@
+const User = require("./User.js")
+
 module.exports = (sequelize, DataTypes) => {
     const Stock = sequelize.define("Stock", {
         symbol: {
@@ -30,5 +32,29 @@ module.exports = (sequelize, DataTypes) => {
             },
         });
     };
+
+    Stock.prototype.deleteStock = function (userName, stockSymbol) {
+        Stock.destroy({
+            where: {
+                symbol: stockSymbol
+            },
+            include: [{
+                model: User,
+                where: { username: userName }
+            }]
+        })
+    }
+
+    Stock.prototype.addStock = async function (userName, stockSymbol, cpName, initValue, lastValue) {
+        const relatedUser = await User.findOne({ where: { username: userName } })
+        Stock.create({
+            symbol: stockSymbol,
+            company_name: cpName,
+            initial_value: initValue,
+            last_value: lastValue,
+            shares: 0,
+            user: relatedUser
+        }, { include: [User] })
+    }
     return Stock;
 }
