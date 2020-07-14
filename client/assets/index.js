@@ -1,5 +1,4 @@
 $(document).ready(function () {
-
     const password = $("#password");
     const username = $("#username");
     $("#btn_login").on("click", function (event) {
