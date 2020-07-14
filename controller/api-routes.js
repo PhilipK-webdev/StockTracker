@@ -44,7 +44,7 @@ router.get("/api/external/stocks/:symbol", (req, res) => {
 router.post("/api/users/:username/stocks/:symbol", (req, res) => {
     db.Stock.addStock(req.params.id, req.params.symbol, "cpName", 1, 2)
         .then(() => res.send({ msg: "successfully added" }))
-        .catch((err) => res.send(err))
+        .catch((err) => res.send(err));
 });
 // Route to delete stock from watchlist
 // example DELETE : http://localhost:3000/api/users/hedical/stocks/MSFT
