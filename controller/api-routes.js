@@ -48,9 +48,6 @@ router.get("/logout", (req, res) => {
 });
 
 
-
-
-
 // Possible route for our portfolio
 router.get("/api/user_data", (req, res) => {
     !req.user
