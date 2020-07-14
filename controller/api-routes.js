@@ -7,6 +7,8 @@ const { seeAllstocks, seeOnestock } = require("../model/externalStockAPI")
 const { getCompanyLogo } = require("../model/externalLogoAPI");
 const { getTopHeadlines } = require("../model/externalNewsAPI");
 
+
+
 // Test object
 const userStocks = [
     {
@@ -33,6 +35,7 @@ router.get("/api/external", (req, res) => {
         .then((stocksValue) => res.json({ stocksValue }))
         .catch((err) => res.send(err))
 });
+
 // Route to get a single stock information
 // example GET : http://localhost:3000/api/external/stocks/MSFT
 router.get("/api/external/stocks/:symbol", (req, res) => {

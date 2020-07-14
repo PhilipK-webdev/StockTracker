@@ -38,4 +38,5 @@ const seeOnestock = (symbolName) => {
 
 }
 
+
 module.exports = { seeAllstocks, seeOnestock }
