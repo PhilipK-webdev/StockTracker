@@ -49,8 +49,23 @@ router.get("/api/external/stocks/:symbol", (req, res) => {
 
 // Route to add stock in user's watchlist
 // example POST : http://localhost:3000/api/users/hedical/stocks/MSFT
-router.post("/api/users/:username/stocks/:symbol", (req, res) => {
-    db.Stock.addStock(req.params.username, req.params.symbol, "cpName", 1, 2)
+// router.post("/api/users/:id/stocks/:symbol", (req, res) => {
+//     db.Stock.addStock(req.params.id, req.params.symbol, "cpName", 1, 2)
+//         .then(() => res.send({ msg: "successfully added" }))
+//         .catch((err) => res.send(err))
+// });
+
+// TEST Route to add stock in user's watchlist
+// example POST : http://localhost:3000/api/users/1/stocks/MSFT
+router.post("/api/users/:id/stocks/:symbol", (req, res) => {
+    db.Stock.create({
+        UserId: 1,
+        symbol: req.params.symbol,
+        company_name: req.params.symbol,
+        inital_value: 10, // careful, typo error in the Stock.js file
+        last_value: 20,
+        shares: 0,
+    })
         .then(() => res.send({ msg: "successfully added" }))
         .catch((err) => res.send(err))
 });
@@ -58,8 +73,8 @@ router.post("/api/users/:username/stocks/:symbol", (req, res) => {
 
 // Route to delete stock from watchlist
 // example DELETE : http://localhost:3000/api/users/hedical/stocks/MSFT
-router.delete("/api/users/:username/stocks/:symbol", (req, res) => {
-    db.Stock.deleteStock(req.params.username, req.params.symbol)
+router.delete("/api/users/:id/stocks/:symbol", (req, res) => {
+    db.Stock.destroy(req.params.id, req.params.symbol)
         .then(() => res.send({ msg: "successfully deleted" }))
         .catch((err) => res.send(err))
 });

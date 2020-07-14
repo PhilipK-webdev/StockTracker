@@ -45,16 +45,16 @@ module.exports = (sequelize, DataTypes) => {
         })
     }
 
-    Stock.prototype.addStock = async function (userName, stockSymbol, cpName, initValue, lastValue) {
-        const relatedUser = await User.findOne({ where: { username: userName } })
-        Stock.create({
-            symbol: stockSymbol,
-            company_name: cpName,
-            initial_value: initValue,
-            last_value: lastValue,
-            shares: 0,
-            user: relatedUser
-        }, { include: [User] })
-    }
+    // Stock.prototype.addStock = async function (id, stockSymbol, cpName, initValue, lastValue) {
+    //     const relatedUser = await User.findOne({ where: { id: id } })
+    //     Stock.create({
+    //         symbol: stockSymbol,
+    //         company_name: cpName,
+    //         initial_value: initValue,
+    //         last_value: lastValue,
+    //         shares: 0,
+    //         user: relatedUser
+    //     }, { include: [User] })
+    // }
     return Stock;
 }
