@@ -10,22 +10,22 @@ const { getTopHeadlines } = require("../model/externalNewsAPI");
 
 
 // Test object
-const userStocks = [
-    {
-        symbol: "AAPL",
-        company_name: "Apple",
-        initial_value: 330.61,
-        last_value: 333.68,
-        shares: 4
-    },
-    {
-        symbol: "IBM",
-        company_name: "IBM",
-        initial_value: 110.37,
-        last_value: 118.35,
-        shares: 7
-    },
-]
+// const userStocks = [
+//     {
+//         symbol: "AAPL",
+//         company_name: "Apple",
+//         initial_value: 330.61,
+//         last_value: 333.68,
+//         shares: 4
+//     },
+//     {
+//         symbol: "IBM",
+//         company_name: "IBM",
+//         initial_value: 110.37,
+//         last_value: 118.35,
+//         shares: 7
+//     },
+// ]
 
 // STOCKS API
 // Route to get all stocks from user watchlist --> We only get the closing value out of this api, but it is possible to resolve the entire stock information
@@ -46,14 +46,6 @@ router.get("/api/external/stocks/:symbol", (req, res) => {
 });
 
 // Route to add stock in user's watchlist
-// example POST : http://localhost:3000/api/users/hedical/stocks/MSFT
-// router.post("/api/users/:id/stocks/:symbol", (req, res) => {
-//     db.Stock.addStock(req.params.id, req.params.symbol, "cpName", 1, 2)
-//         .then(() => res.send({ msg: "successfully added" }))
-//         .catch((err) => res.send(err))
-// });
-
-// TEST Route to add stock in user's watchlist
 // example POST : http://localhost:3000/api/users/1/stocks/MSFT
 router.post("/api/users/:id/stocks/:symbol", (req, res) => {
     db.Stock.create({
@@ -67,8 +59,10 @@ router.post("/api/users/:id/stocks/:symbol", (req, res) => {
         .then(() => res.send({ msg: "successfully added" }))
         .catch((err) => res.send(err));
 });
+
 // Route to delete stock from watchlist
 // example DELETE : http://localhost:3000/api/users/1/stocks/MSFT
+
 router.delete("/api/users/:id/stocks/:symbol", (req, res) => {
     db.Stock.destroy({
         where:
@@ -99,6 +93,10 @@ router.get("/api/logo/:symbol", (req, res) => {
         .then((companyLogo) => res.json({ companyLogo }))
         .catch((err) => res.send(err))
 });
+
+// router.get("/stock", (req, res) => {
+//     const arr = staticStocks();
+// });
 
 // User Routes:
 router.post("/api/login", passport.authenticate("local"), (req, res) => {
