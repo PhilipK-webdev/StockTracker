@@ -42,12 +42,22 @@ const staticStocks = () => {
     return new Promise((resolve, reject) => {
         const arrayRandomStock = [];
         let tempArrPromise = [];
-        for (let i = 0; i < 6; i++) {
+        const randomNumbers = [];
+        let i = 0;
+        while (i < 6) {
             let random = Math.floor((Math.random() * staticArrayStocks.length));
-            arrayRandomStock.push(staticArrayStocks[random]);
+            if (!randomNumbers.includes(random)) {
+                randomNumbers.push(random);
+                i++;
+            }
         }
-        for (i = 0; i < arrayRandomStock.length; i++) {
-            tempArrPromise.push(axios.get(`https://cloud.iexapis.com/stable/stock/${arrayRandomStock[i]}/quote?token=${tokenIEX}`))
+
+
+        for (let j = 0; j < randomNumbers.length; j++) {
+            arrayRandomStock.push(staticArrayStocks[randomNumbers[j]]);
+        }
+        for (let x = 0; x < arrayRandomStock.length; x++) {
+            tempArrPromise.push(axios.get(`https://cloud.iexapis.com/stable/stock/${arrayRandomStock[x]}/quote?token=${tokenIEX}`))
         }
         Promise.all(tempArrPromise)
             .then(responses => {

@@ -11,8 +11,7 @@ const getCompanyLogo = (symbolName) => {
             dataType: "json"
         })
             .then((logo) => {
-                resolve(logo.data)
-                console.log(logo.data);
+                resolve(logo.data);
             })
             .catch((err) => reject(err))
     })
