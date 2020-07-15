@@ -38,28 +38,24 @@ const seeOnestock = (symbolName) => {
 
 }
 
-// const staticStocks = () => {
+const staticStocks = () => {
+    return new Promise((resolve, reject) => {
+        const arrayRandomStock = [];
+        let tempArrPromise = [];
+        for (let i = 0; i < 6; i++) {
+            let random = Math.floor((Math.random() * staticArrayStocks.length));
+            arrayRandomStock.push(staticArrayStocks[random]);
+        }
+        for (i = 0; i < arrayRandomStock.length; i++) {
+            tempArrPromise.push(axios.get(`https://cloud.iexapis.com/stable/stock/${arrayRandomStock[i]}/quote?token=${tokenIEX}`))
+        }
+        Promise.all(tempArrPromise)
+            .then(responses => {
+                resolve(responses);
+            }).catch(err => reject(err));
 
-//     const arrayRandomStock = [];
-//     const tempArr = [];
-//     for (let i = 0; i < 6; i++) {
+    });
+}
 
-//         let random = Math.floor((Math.random() * staticArrayStocks.length));
-//         arrayRandomStock.push(staticArrayStocks[random]);
+module.exports = { seeAllstocks, seeOnestock, staticStocks }
 
-//     }
-//     arrayRandomStock.forEach((symbol) => {
-//         axios({
-//             method: "GET",
-//             url: `https://cloud.iexapis.com/stable/stock/${symbol}/quote?token=${tokenIEX}`,
-//             dataType: "json"
-//         }).then(res => {
-//             tempArr.push(res.data);
-//             console.log(tempArr);
-//         }).catch(err => console.log(err));
-//     });
-
-//     return tempArr;
-// }
-
-module.exports = { seeAllstocks, seeOnestock }
