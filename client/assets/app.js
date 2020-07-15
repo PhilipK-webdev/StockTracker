@@ -147,6 +147,7 @@ function displayStocksCarousel() {
         <p style="color:red;">Company Name:<br>${objStock[i].companyName}</br></p>
         <p style="color:black;">Symbol:<br>${objStock[i].symbol} </br></p>
         <p style="color:green;">Last Value:<br>${objStock[i].lastValue}$</p>
+        <button type="submit" id="btnSubmit" data-id=${i}>Add ME</button>
       </div>
         `);
       }
