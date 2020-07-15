@@ -96,8 +96,6 @@ router.get("/api/logo/:symbol", (req, res) => {
 
 // router.get("/stock", (req, res) => {
 //     const arr = staticStocks();
-
-
 // });
 
 // User Routes:
