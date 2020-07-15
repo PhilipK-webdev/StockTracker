@@ -5,6 +5,7 @@ const PORT = process.env.PORT || 3000;
 const session = require("express-session");
 const passport = require("passport");
 const db = require("./models");
+const Ticker = require('./data')
 require("dotenv").config();
 // 
 app.use(express.urlencoded({ extended: true }));
@@ -32,4 +33,3 @@ app.use(apiRoutes);
 db.sequelize.sync().then(() => {
     app.listen(PORT, () => console.log(`listening at http://localhost:${PORT}`));
 });
-
