@@ -10,22 +10,22 @@ const { getTopHeadlines } = require("../model/externalNewsAPI");
 
 
 // Test object
-const userStocks = [
-    {
-        symbol: "AAPL",
-        company_name: "Apple",
-        initial_value: 330.61,
-        last_value: 333.68,
-        shares: 4
-    },
-    {
-        symbol: "IBM",
-        company_name: "IBM",
-        initial_value: 110.37,
-        last_value: 118.35,
-        shares: 7
-    },
-]
+// const userStocks = [
+//     {
+//         symbol: "AAPL",
+//         company_name: "Apple",
+//         initial_value: 330.61,
+//         last_value: 333.68,
+//         shares: 4
+//     },
+//     {
+//         symbol: "IBM",
+//         company_name: "IBM",
+//         initial_value: 110.37,
+//         last_value: 118.35,
+//         shares: 7
+//     },
+// ]
 
 // STOCKS API
 // Route to get all stocks from user watchlist --> We only get the closing value out of this api, but it is possible to resolve the entire stock information
@@ -99,6 +99,12 @@ router.get("/api/logo/:symbol", (req, res) => {
         .then((companyLogo) => res.json({ companyLogo }))
         .catch((err) => res.send(err))
 });
+
+// router.get("/stock", (req, res) => {
+//     const arr = staticStocks();
+
+
+// });
 
 // User Routes:
 router.post("/api/login", passport.authenticate("local"), (req, res) => {
