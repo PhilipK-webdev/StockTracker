@@ -9,26 +9,31 @@ $(document).ready(function () {
     $("#btn_register").on("click", function (event) {
         event.preventDefault();
         console.log("hello");
-        const User = {
+        const UserRegister = {
             firstname: firstname.val(),
             lastname: lastname.val(),
             username: username.val(),
             email: email.val(),
             password: password.val(),
         }
-        register(User).then(register => {
+        register(UserRegister).then(register => {
             console.log(register);
-            window.location.href = "/";
+            window.location.href = "/dashboard.html";
         }).catch(err => console.log(err));
     });
+    $("#btn_return").on("click", function (event) {
+        event.preventDefault();
+        window.location.href = "index.html";
+    });
+
 });
 
-const register = (User) => {
+const register = (UserRegister) => {
     return new Promise((resovle, reject) => {
         $.ajax({
             type: "POST",
             url: "/api/register",
-            data: User
+            data: UserRegister
         }).then(res => {
             resovle(res);
 

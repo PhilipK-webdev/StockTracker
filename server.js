@@ -5,7 +5,6 @@ const PORT = process.env.PORT || 3000;
 const session = require("express-session");
 const passport = require("passport");
 const db = require("./models");
-const Ticker = require('./data')
 require("dotenv").config();
 // 
 app.use(express.urlencoded({ extended: true }));
