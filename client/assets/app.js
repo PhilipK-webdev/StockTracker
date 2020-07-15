@@ -1,10 +1,127 @@
 document.addEventListener("DOMContentLoaded", function () {
   var elems = document.querySelectorAll(".carousel");
-  var instances = M.Carousel.init(elems, options);
+  var instances = M.Carousel.init(elems);
 });
-
-// Or with jQuery
 
 $(document).ready(function () {
   $(".carousel").carousel();
+  // Object of stock with : company name, symbol,last value
+  objStock().then(responseObjStockStatic => {
+    const objStock = [];
+    for (let i = 0; i < responseObjStockStatic.length; i++) {
+      let obj = {
+        companyName: responseObjStockStatic[i].companyName,
+        symbol: responseObjStockStatic[i].symbol,
+        lastValue: responseObjStockStatic[i].latestPrice,
+
+      };
+      objStock.push(obj);
+    }
+    // getting the array of single logo;
+    getSymbol(objStock).then(resLogo => {
+      console.log(resLogo);
+    }).catch(err => console.log(err));
+  }).catch(err => console.log(err))
+
+
+
+  // Autocomplete function to get stocks name and symbols from JSON file hosted on URL
+  var arrayReturn = [];
+  $.ajax({
+    url: "https://api.npoint.io/d8f251b3646602071881",
+    async: true,
+    dataType: 'json',
+    success: function (data) {
+      for (var i = 0, len = data.length; i < len; i++) {
+        var symbol = data[i].symbol
+        arrayReturn.push({ 'value': data[i].name, 'data': symbol });
+      }
+      loadSuggestions(arrayReturn);
+    }
+  });
+
+  function loadSuggestions(options) {
+    $('#autocomplete').autocomplete({
+      lookup: options,
+      onSelect: function (suggestion) {
+        $('#selected_option').html(suggestion.data);
+      }
+    });
+  }
+
+  // Function to add to watchlist table, launch requests to retreive close value, and add to user stocks
+
+  $("#addBtn").on("click", () => {
+    addStockUser()
+  })
+
+  const addWatchlist = () => {
+    let company = $("#autocomplete").html()
+    console.log(company);
+
+    let symbol = $("#selected_option").html()
+
+    $("tbody").append(`
+            <tr>
+              <td>${company}</td>
+              <td>${symbol}</td>
+              <td>200 $</td>
+              <td>Remove</td>
+            </tr>
+`)
+
+  }
+  const addStockUser = () => {
+
+    let symbol = $("#selected_option").html()
+
+
+    $.ajax({
+      type: "GET",
+      url: "/api/user_data",
+      data: { id: id },
+    }).then(() => {
+      return id
+    });
+
+    $.ajax({
+      type: "POST",
+      url: "/api/users/:id/stocks/:symbol",
+      data: { id: id, symbol: symbol },
+    }).then(() => {
+      addWatchlist()
+    });
+  }
+
+
 });
+
+const objStock = () => {
+  return new Promise((resolve, reject) => {
+    $.ajax({
+      type: "GET",
+      url: "/api/stock",
+      dataType: "json"
+    }).then(res => resolve(res)).catch(err => reject(err))
+  })
+
+}
+
+const getSymbol = (objStock) => {
+  return new Promise((resolve, reject) => {
+    let tempArrPromise = [];
+    for (i = 0; i < objStock.length; i++) {
+      tempArrPromise.push($.ajax({
+        type: "GET",
+        url: `/api/logo/${objStock[i].symbol}`,
+        dataType: "json"
+      }))
+    }
+    Promise.all(tempArrPromise)
+      .then(responses => {
+        resolve(responses);
+      }).catch(err => reject(err));
+
+  });
+}
+

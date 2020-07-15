@@ -32,4 +32,3 @@ app.use(apiRoutes);
 db.sequelize.sync().then(() => {
     app.listen(PORT, () => console.log(`listening at http://localhost:${PORT}`));
 });
-

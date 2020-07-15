@@ -1,9 +1,9 @@
 const axios = require("axios");
-const tokenIEX = "pk_723f0373466e46fa8549c7f632ef69f1" //IEX
-
+const tokenIEX = process.env.APIKEY; //IEX
+const staticArrayStocks = [
+    "MSFT", "AAPL", "AMZN", "GOOG", "GOOGL", "FB", "BRK.B", "JNJ", "V", "PG", "JPM", "UNH", "MA", "INTC", "VZ"];
 // Function to get all stocks from user watchlist
 const seeAllstocks = (userSymbols) => {
-
     return new Promise((resolve, reject) => {
         symbolArray = userSymbols.map(a => { return { symbol: a.symbol } })
         symbolArray.forEach((symbol) => {
@@ -14,7 +14,7 @@ const seeAllstocks = (userSymbols) => {
             })
                 .then((response) => {
                     resolve(response.data.iexClose)
-                    console.log(response.data.iexClose);
+
                 })
                 .catch((err) => reject(err))
         });
@@ -38,4 +38,24 @@ const seeOnestock = (symbolName) => {
 
 }
 
-module.exports = { seeAllstocks, seeOnestock }
+const staticStocks = () => {
+    return new Promise((resolve, reject) => {
+        const arrayRandomStock = [];
+        let tempArrPromise = [];
+        for (let i = 0; i < 6; i++) {
+            let random = Math.floor((Math.random() * staticArrayStocks.length));
+            arrayRandomStock.push(staticArrayStocks[random]);
+        }
+        for (i = 0; i < arrayRandomStock.length; i++) {
+            tempArrPromise.push(axios.get(`https://cloud.iexapis.com/stable/stock/${arrayRandomStock[i]}/quote?token=${tokenIEX}`))
+        }
+        Promise.all(tempArrPromise)
+            .then(responses => {
+                resolve(responses);
+            }).catch(err => reject(err));
+
+    });
+}
+
+module.exports = { seeAllstocks, seeOnestock, staticStocks }
+
