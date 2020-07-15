@@ -3,7 +3,7 @@ const router = express.Router();
 const db = require("../models");
 const passport = require("../config/passport");
 const axios = require("axios");
-const { seeAllstocks, seeOnestock } = require("../model/externalStockAPI")
+const { seeAllstocks, seeOnestock, staticStocks } = require("../model/externalStockAPI")
 const { getCompanyLogo } = require("../model/externalLogoAPI");
 const { getTopHeadlines } = require("../model/externalNewsAPI");
 
@@ -94,9 +94,16 @@ router.get("/api/logo/:symbol", (req, res) => {
         .catch((err) => res.send(err))
 });
 
-// router.get("/stock", (req, res) => {
-//     const arr = staticStocks();
-// });
+router.get("/api/stock", (req, res) => {
+    staticStocks().then((response) => {
+        const tempArr = [];
+        for (let i = 0; i < response.length; i++) {
+            tempArr.push(response[i].data);
+        }
+        res.json(tempArr);
+    }).catch(err => res.send(err));
+});
+
 
 // User Routes:
 router.post("/api/login", passport.authenticate("local"), (req, res) => {

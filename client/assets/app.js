@@ -5,6 +5,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
 $(document).ready(function () {
   $(".carousel").carousel();
+  // Object of stock with : company name, symbol,last value
+  objStock().then(responseObjStockStatic => {
+    const objStock = [];
+    for (let i = 0; i < responseObjStockStatic.length; i++) {
+      let obj = {
+        companyName: responseObjStockStatic[i].companyName,
+        symbol: responseObjStockStatic[i].symbol,
+        lastValue: responseObjStockStatic[i].latestPrice,
+
+      };
+      objStock.push(obj);
+    }
+    // getting the array of single logo;
+    getSymbol(objStock).then(resLogo => {
+      console.log(resLogo);
+    }).catch(err => console.log(err));
+  }).catch(err => console.log(err))
+
+
 
   // Autocomplete function to get stocks name and symbols from JSON file hosted on URL
   var arrayReturn = [];
@@ -74,4 +93,35 @@ $(document).ready(function () {
     });
   }
 
+
 });
+
+const objStock = () => {
+  return new Promise((resolve, reject) => {
+    $.ajax({
+      type: "GET",
+      url: "/api/stock",
+      dataType: "json"
+    }).then(res => resolve(res)).catch(err => reject(err))
+  })
+
+}
+
+const getSymbol = (objStock) => {
+  return new Promise((resolve, reject) => {
+    let tempArrPromise = [];
+    for (i = 0; i < objStock.length; i++) {
+      tempArrPromise.push($.ajax({
+        type: "GET",
+        url: `/api/logo/${objStock[i].symbol}`,
+        dataType: "json"
+      }))
+    }
+    Promise.all(tempArrPromise)
+      .then(responses => {
+        resolve(responses);
+      }).catch(err => reject(err));
+
+  });
+}
+
