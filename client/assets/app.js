@@ -72,6 +72,17 @@ $(document).ready(function () {
     });
   }
 
+  $(".btnMoreInfo").on("click", () => {
+    $.ajax({
+      type: "GET",
+      url: "/api/user_data",
+      dataType: "json"
+    }).then(resonseUser => {
+      // const todoId = $(this).attr("data-id");
+      const id = resonseUser.id;
+      window.location.href = `/stockDetails?id=${id}`;
+    });
+  });
 
 });
 
@@ -142,7 +153,7 @@ function displayStocksCarousel() {
 
 
 
-$(document).on("click", "#stockDetails", function () {
-  const todoId = $(this).attr("data-id");
-  window.location.href = `/dashboard?id=${todoId}`;
-});
+// $(document).on("click", ".btnMoreInfo", function () {
+
+
+// });

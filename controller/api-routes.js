@@ -109,6 +109,7 @@ router.post("/api/register", (req, res) => {
         })
         .catch((err) => res.status(401).json(err));
 });
+
 router.get("/user/:id", (req, res) => {
     db.User.findOne({
         where: {
