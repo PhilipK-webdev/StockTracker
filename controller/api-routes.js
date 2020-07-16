@@ -83,6 +83,13 @@ router.get("/api/stock", (req, res) => {
     }).catch(err => res.send(err));
 });
 
+router.get("/find/:id", (req, res) => {
+    db.Stock.findAll({
+        where: {
+            UserId: req.params.id,
+        }
+    }).then(todo => res.send(todo)).catch(err => res.send(err));
+});
 
 // User Routes:
 router.post("/api/login", passport.authenticate("local"), (req, res) => {
@@ -98,9 +105,16 @@ router.post("/api/register", (req, res) => {
         password: req.body.password,
     })
         .then(() => {
-            res.json({ msg: "success" });
+            res.json({ id: req.user.id });
         })
         .catch((err) => res.status(401).json(err));
+});
+router.get("/user/:id", (req, res) => {
+    db.User.findOne({
+        where: {
+            id: req.params.id,
+        }
+    }).then(todo => res.send(todo)).catch(err => res.send(err));
 });
 
 router.get("/logout", (req, res) => {

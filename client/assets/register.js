@@ -8,7 +8,6 @@ $(document).ready(function () {
 
     $("#btn_register").on("click", function (event) {
         event.preventDefault();
-        console.log("hello");
         const UserRegister = {
             firstname: firstname.val(),
             lastname: lastname.val(),

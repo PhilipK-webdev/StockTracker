@@ -1,21 +1,11 @@
-// document.addEventListener('DOMContentLoaded', function () {
-//   var elems = document.querySelectorAll('.carousel');
-//   var instances = M.Carousel.init(elems, options);
-//   var instance = M.Carousel.getInstance(elem);
-
-
-// });
-
-
-
 $(document).ready(function () {
 
   // Object of stock with : company name, symbol,last value
-
   $('.carousel').carousel();
+  const urlParams = new URLSearchParams(window.location.search);
+  const id = urlParams.get("id");
+  console.log(id)
   displayStocksCarousel();
-
-
   // Autocomplete function to get stocks name and symbols from JSON file hosted on URL
   var arrayReturn = [];
   $.ajax({
@@ -30,7 +20,6 @@ $(document).ready(function () {
       loadSuggestions(arrayReturn);
     }
   });
-
   function loadSuggestions(options) {
     $('#autocomplete').autocomplete({
       lookup: options,
@@ -41,7 +30,6 @@ $(document).ready(function () {
   }
 
   // Function to add to watchlist table, launch requests to retreive close value, and add to user stocks
-
   $("#addBtn").on("click", () => {
     addStockUser()
   })
@@ -136,17 +124,14 @@ function displayStocksCarousel() {
     }
     // getting the array of single logo;
     getSymbol(objStock).then(resLogo => {
-      console.log(resLogo[0].companyLogo.url);
-      console.log(objStock[0].companyName);
-      console.log(objStock.length);
       for (let i = 0; i < resLogo.length; i++) {
         $(`#img${i}`).attr("src", `${resLogo[i].companyLogo.url}`);
       }
       for (let i = 0; i < objStock.length; i++) {
         $(`#one${i}`).prepend(`<div class="card-content">
-        <p style="color:red;">Company Name:<br>${objStock[i].companyName}</br></p>
-        <p style="color:black;">Symbol:<br>${objStock[i].symbol} </br></p>
-        <p style="color:green;">Last Value:<br>${objStock[i].lastValue}$</p>
+        <p style="color:red;">${objStock[i].companyName}</p>
+        <p style="color:black;">${objStock[i].symbol}</p>
+        <p style="color:green;">$${objStock[i].lastValue}</p>
         <button type="submit" id="btnSubmit" data-id=${i}>Add ME</button>
       </div>
         `);
@@ -156,3 +141,8 @@ function displayStocksCarousel() {
 }
 
 
+
+$(document).on("click", "#stockDetails", function () {
+  const todoId = $(this).attr("data-id");
+  window.location.href = `/dashboard?id=${todoId}`;
+});
