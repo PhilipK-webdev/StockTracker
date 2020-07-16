@@ -23,7 +23,6 @@ const seeAllstocks = (userSymbols) => {
 
 // Function to get all stocks from user watchlist
 const seeAllUserStocks = (userSymbols) => {
-
     return new Promise((resolve, reject) => {
         symbolArray = userSymbols.map(a => { return { symbol: a.symbol } })
         symbolArray.forEach((symbol) => {

@@ -52,7 +52,7 @@ router.post("/api/users/:id/stocks/:symbol", (req, res) => {
         UserId: req.params.id,
         symbol: req.params.symbol,
         company_name: "not needed", // FOR VIRTUAL PORTFOLIO FEATURE
-        inital_value: 10, // FOR VIRTUAL PORTFOLIO FEATURE - careful, typo error in the Stock.js file
+        inital_value: 0, // FOR VIRTUAL PORTFOLIO FEATURE - careful, typo error in the Stock.js file
         last_value: 0, // FOR VIRTUAL PORTFOLIO FEATURE
         shares: 0, // FOR VIRTUAL PORTFOLIO FEATURE
         createdAt: new Date(),
