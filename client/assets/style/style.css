@@ -64,4 +64,15 @@
 		.autocomplete-group strong {
 			display: block;
 			border-bottom: 1px solid #000;
-		}
+    }
+    
+    .percent {
+      animation: blinker 2s linear infinite;
+    }
+
+
+    @keyframes blinker {
+      50% {
+        opacity: 0;
+      }
+    }

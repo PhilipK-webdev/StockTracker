@@ -7,7 +7,7 @@ const getTopHeadlines = (companyName) => {
     return new Promise((resolve, reject) => {
         axios({
             method: "GET",
-            url: `https://newsapi.org/v2/top-headlines?q=${companyName}&apiKey=${apiKey}`,
+            url: `https://newsapi.org/v2/top-headlines?q=${companyName}&pageSize=1&country=us&apiKey=${apiKey}`,
             dataType: "json"
         })
             .then((articles) => {
