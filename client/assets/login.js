@@ -1,9 +1,9 @@
 $(document).ready(function () {
-    const password = $("#password");
     const username = $("#username");
+    const password = $("#password");
+
     $("#btn_login").on("click", function (event) {
         event.preventDefault();
-        console.log("hello");
         const UserLogin = {
             username: username.val(),
             password: password.val(),
@@ -14,7 +14,12 @@ $(document).ready(function () {
             data: UserLogin
         }).then(res => {
             console.log(res);
-            window.location.href = "./dashboard.html";
+            window.location.href = "/dashboard.html";
         }).catch(err => console.log(err));
     });
+    $("#btn_return").on("click", function (event) {
+        event.preventDefault();
+        window.location.href = "index.html";
+    });
 });
+

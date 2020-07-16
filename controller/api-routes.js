@@ -3,7 +3,7 @@ const router = express.Router();
 const db = require("../models");
 const passport = require("../config/passport");
 const axios = require("axios");
-const { seeManyStocks, seeOnestock, seeAllUserStocks } = require("../model/externalStockAPI")
+const { seeAllstocks, seeOnestock, seeAllUserStocks } = require("../model/externalStockAPI")
 const { getCompanyLogo } = require("../model/externalLogoAPI");
 const { getTopHeadlines } = require("../model/externalNewsAPI");
 
@@ -61,7 +61,7 @@ router.post("/api/users/:id/stocks/:symbol", (req, res) => {
 
     })
         .then(() => res.send({ msg: "successfully added" }))
-        .catch((err) => res.send(err))
+        .catch((err) => res.send(err));
 });
 
 // Route to delete stock from watchlist
@@ -99,6 +99,17 @@ router.get("/api/logo/:symbol", (req, res) => {
         .catch((err) => res.send(err))
 });
 
+router.get("/api/stock", (req, res) => {
+    staticStocks().then((response) => {
+        const tempArr = [];
+        for (let i = 0; i < response.length; i++) {
+            tempArr.push(response[i].data);
+        }
+        res.json(tempArr);
+    }).catch(err => res.send(err));
+});
+
+
 // User Routes:
 router.post("/api/login", passport.authenticate("local"), (req, res) => {
     res.json({ username: req.user.username, id: req.user.id });
@@ -114,7 +125,6 @@ router.post("/api/register", (req, res) => {
     })
         .then(() => {
             res.json({ msg: "success" });
-            res.redirect(307, "/api/login");
         })
         .catch((err) => res.status(401).json(err));
 });
