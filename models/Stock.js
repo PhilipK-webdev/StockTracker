@@ -1,5 +1,3 @@
-const User = require("./User.js")
-
 module.exports = (sequelize, DataTypes) => {
     const Stock = sequelize.define("Stock", {
         symbol: {
