@@ -135,14 +135,6 @@ router.post("/api/register", (req, res) => {
         .catch((err) => res.status(401).json(err));
 });
 
-router.get("/user/:id", (req, res) => {
-    db.User.findOne({
-        where: {
-            id: req.params.id,
-        }
-    }).then(todo => res.send(todo)).catch(err => res.send(err));
-});
-
 router.get("/logout", (req, res) => {
     req.logout();
     res.redirect("/");
