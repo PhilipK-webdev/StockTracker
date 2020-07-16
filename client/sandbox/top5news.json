@@ -1,0 +1,57 @@
+[
+  {
+    "datetime": 1594873100000,
+    "headline": "Twitter hacked: What happened and how Twitter tackled the Bitcoin scam",
+    "source": "The Indian Express",
+    "url": "https://cloud.iexapis.com/v1/news/article/bd8c218b-21fa-49d7-b362-6567e969466a",
+    "summary": "\"Tough day for us at Twitter. We all feel terrible this happened,\" Twitter CEO Jack Dorsey said after official accounts of profound personalities like Barak Obama, Elon Musk, Bill Gates and companies such as Apple and Uber were hacked for promoting a bitcoin scam. Here's what happened.",
+    "related": "AAPL",
+    "image": "https://cloud.iexapis.com/v1/news/image/bd8c218b-21fa-49d7-b362-6567e969466a",
+    "lang": "en",
+    "hasPaywall": false
+  },
+  {
+    "datetime": 1594872872000,
+    "headline": "Tesla sube un 400% en cuatro meses: ¿un nuevo Apple o una vieja burbuja?",
+    "source": "Cinco Dias El Pais",
+    "url": "https://cloud.iexapis.com/v1/news/article/792e62a5-113c-4588-a78c-12ccc20cf334",
+    "summary": "En una sola sesión, la valoración fluctuó en 55.000 millones de dólares",
+    "related": "AAPL",
+    "image": "https://cloud.iexapis.com/v1/news/image/792e62a5-113c-4588-a78c-12ccc20cf334",
+    "lang": "es",
+    "hasPaywall": false
+  },
+  {
+    "datetime": 1594871328000,
+    "headline": "Twitter hack exploits Apple, Elon Musk and other prominent accounts",
+    "source": "TechRadar",
+    "url": "https://cloud.iexapis.com/v1/news/article/061126f0-2bac-4b8c-8f33-4e30027f818e",
+    "summary": "Twitter gets hacked on its 14th anniversary, and no, it's not hawking bitcoin for its birthday.",
+    "related": "AAPL",
+    "image": "https://cloud.iexapis.com/v1/news/image/061126f0-2bac-4b8c-8f33-4e30027f818e",
+    "lang": "en",
+    "hasPaywall": false
+  },
+  {
+    "datetime": 1594868712000,
+    "headline": "Elon Musk, Apple, Bill Gates, Jeff Bezos y otros sufren hackeo en Twitter",
+    "source": "CNET",
+    "url": "https://cloud.iexapis.com/v1/news/article/09409b22-9119-4afa-9983-38e39a547b5c",
+    "summary": "Unos cibercriminales de criptomonedas parecen haber hackeado cuentas verificadas de Twitter y publicado links donde piden pagos en bitcoin fraudulentos.",
+    "related": "AAPL",
+    "image": "https://cloud.iexapis.com/v1/news/image/09409b22-9119-4afa-9983-38e39a547b5c",
+    "lang": "es",
+    "hasPaywall": false
+  },
+  {
+    "datetime": 1594866619000,
+    "headline": "Massive Twitter Attack: Apple, Joe Biden, Elon Musk, Bill Gates, Jeff Bezos, Uber Tweeting Bitcoin Giveaway Scam",
+    "source": "Bitcoin.com News",
+    "url": "https://cloud.iexapis.com/v1/news/article/0ae33934-3b5e-434e-b0ed-6a3676e3fc7a",
+    "summary": "A massive attack hit crypto Twitter on Wednesday as many prominent accounts began tweeting about a bitcoin giveaway. Soon it was apparent that the breach was much more serious when major corporations and famous people tweeted that they will double your bitcoin, including Apple, Google, Joe Biden, Elon Musk, Bill Gates, Jeff Bezos, Kanye West, […] The post Massive Twitter Attack: Apple, Joe Biden, Elon Musk, Bill Gates, Jeff Bezos, Uber Tweeting Bitcoin Giveaway Scam appeared first on Bitcoin News .",
+    "related": "AAPL",
+    "image": "https://cloud.iexapis.com/v1/news/image/0ae33934-3b5e-434e-b0ed-6a3676e3fc7a",
+    "lang": "en",
+    "hasPaywall": false
+  }
+]
