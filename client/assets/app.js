@@ -29,47 +29,81 @@ $(document).ready(function () {
     });
   }
 
-  // Function to add to watchlist table, launch requests to retreive close value, and add to user stocks
-  $("#addBtn").on("click", () => {
-    addStockUser()
-  })
+  const renderWatchList = (symbol) => {
 
-  const addWatchlist = () => {
-    let company = $("#autocomplete").html()
-    console.log(company);
+    getStockInfo(symbol)
 
-    let symbol = $("#selected_option").html()
-
-    $("tbody").append(`
-            <tr>
-              <td>${company}</td>
-              <td>${symbol}</td>
-              <td>200 $</td>
-              <td>Remove</td>
-            </tr>
+      .then((stock) => {
+        console.log(stock);
+        $("tbody").append(`
+      <tr id="line-${symbol}">
+        <td>${stock.companyName}</td>
+        <td>${symbol}</td>
+        <td>${stock.value} USD</td>
+        <td>${(stock.evolution * 100).toFixed(2)} %</td>
+        <td class="removeBtn" symbol="${symbol}">Remove</td>
+      </tr>
 `)
-
+      })
   }
-  const addStockUser = () => {
 
-    let symbol = $("#selected_option").html()
+  // Function to add a stock to the user watchlist (in database)
+  const addStockUser = async (symbol) => {
 
+    const user = await getUserInfo()
+    return $.ajax({
+      type: "POST",
+      url: `/api/users/${user.id}/stocks/${symbol}`,
+    })
+  }
+
+
+  // Function to delete a stock from the user watchlist (in database)
+  const deleteStockUser = async (symbol) => {
+
+    const user = await getUserInfo()
+    return $.ajax({
+      type: "DELETE",
+      url: `/api/users/${user.id}/stocks/${symbol}`,
+    })
+  }
+
+  // Function to get info from stock
+  const getStockInfo = (symbol) => {
+    return $.ajax({
+      type: "GET",
+      url: `/api/external/stocks/${symbol}`,
+    }).then((stock) => {
+      console.log("api from GetStockInfo", stock);
+      return stock
+    })
+  }
+
+  // Function to get information from user logged in
+  const getUserInfo = async () => {
+
+    return $.ajax({
+      type: "GET",
+      url: "/api/user_data",
+    })
+  }
+
+  const loadWatchlist = async () => {
+    const user = await getUserInfo()
 
     $.ajax({
       type: "GET",
-      url: "/api/user_data",
-      data: { id: id },
-    }).then(() => {
-      return id
-    });
+      url: `/api/users/${user.id}/watchlist`,
+    }).then((userStocks) => {
+      console.log(userStocks);
+      console.log(userStocks.stocksArray);
+      let stocks = userStocks.stocksArray
+      stocks.forEach((symbol) => {
+        renderWatchList(symbol.symbol)
+      })
+      console.log(userStocks);
+    })
 
-    $.ajax({
-      type: "POST",
-      url: "/api/users/:id/stocks/:symbol",
-      data: { id: id, symbol: symbol },
-    }).then(() => {
-      addWatchlist()
-    });
   }
 
   $(".btnMoreInfo").on("click", () => {
