@@ -4,7 +4,6 @@
 // });
 
 $(document).ready(function () {
-<<<<<<< HEAD
   $(".sidenav").sidenav();
 });
 
@@ -48,13 +47,3 @@ function printTheChart(stockData) {
     },
   });
 }
-=======
-    const urlParams = new URLSearchParams(window.location.search);
-    const id = urlParams.get("id");
-    console.log(id);
-
-
-
-
-});
->>>>>>> 7fb46c8f89da62afb74beb0de3811b984ae2963a
