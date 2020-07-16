@@ -3,10 +3,9 @@ const router = express.Router();
 const db = require("../models");
 const passport = require("../config/passport");
 const axios = require("axios");
-const { seeAllstocks, seeOnestock, seeAllUserStocks } = require("../model/externalStockAPI")
+const { seeAllstocks, seeOnestock, staticStocks } = require("../model/externalStockAPI")
 const { getCompanyLogo } = require("../model/externalLogoAPI");
 const { getTopHeadlines } = require("../model/externalNewsAPI");
-
 
 // STOCKS API
 // Route to get all stocks  --> We only get the closing value out of this api, but it is possible to resolve the entire stock information

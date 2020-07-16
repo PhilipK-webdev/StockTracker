@@ -4,25 +4,11 @@
 // });
 
 $(document).ready(function () {
-  $(".carousel").carousel();
+
   // Object of stock with : company name, symbol,last value
-  objStock().then(responseObjStockStatic => {
-    const objStock = [];
-    for (let i = 0; i < responseObjStockStatic.length; i++) {
-      let obj = {
-        companyName: responseObjStockStatic[i].companyName,
-        symbol: responseObjStockStatic[i].symbol,
-        lastValue: responseObjStockStatic[i].latestPrice,
 
-      };
-      objStock.push(obj);
-    }
-    // getting the array of single logo;
-    getSymbol(objStock).then(resLogo => {
-      console.log(resLogo);
-    }).catch(err => console.log(err));
-  }).catch(err => console.log(err))
-
+  $('.carousel').carousel();
+  displayStocksCarousel();
 
 
   // ON CLICKS
@@ -188,4 +174,44 @@ const getSymbol = (objStock) => {
 
   });
 }
+
+
+
+
+
+
+
+function displayStocksCarousel() {
+  objStock().then(responseObjStockStatic => {
+    const objStock = [];
+    for (let i = 0; i < responseObjStockStatic.length; i++) {
+      let obj = {
+        companyName: responseObjStockStatic[i].companyName,
+        symbol: responseObjStockStatic[i].symbol,
+        lastValue: responseObjStockStatic[i].latestPrice,
+
+      };
+      objStock.push(obj);
+    }
+    // getting the array of single logo;
+    getSymbol(objStock).then(resLogo => {
+      console.log(resLogo[0].companyLogo.url);
+      console.log(objStock[0].companyName);
+      console.log(objStock.length);
+      for (let i = 0; i < resLogo.length; i++) {
+        $(`#img${i}`).attr("src", `${resLogo[i].companyLogo.url}`);
+      }
+      for (let i = 0; i < objStock.length; i++) {
+        $(`#one${i}`).prepend(`<div class="card-content">
+        <p style="color:red;">Company Name:<br>${objStock[i].companyName}</br></p>
+        <p style="color:black;">Symbol:<br>${objStock[i].symbol} </br></p>
+        <p style="color:green;">Last Value:<br>${objStock[i].lastValue}$</p>
+        <button type="submit" id="btnSubmit" data-id=${i}>Add ME</button>
+      </div>
+        `);
+      }
+    }).catch(err => console.log(err));
+  }).catch(err => console.log(err));
+}
+
 
