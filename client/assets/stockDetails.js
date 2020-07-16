@@ -1,30 +1,23 @@
 $(document).ready(function () {
-    const urlParams = new URLSearchParams(window.location.search);
-    const id = urlParams.get("id");
-    console.log(id);
-
+    const urlParams = new URLSearchParams(window.location.search.substring(0));
+    const idAndSymbolString = urlParams.get("id");
+    const arrOfSymbolAndId = idAndSymbolString.split("/");
     $.ajax({
         type: "GET",
-        url: `/find/${id}`,
-        dataType: "json"
-    }).then(res => {
-
-        console.log(res);
+        url: `/api/external/stocks/${arrOfSymbolAndId[1]}`
+    }).then(allData => {
+        console.log(allData);
+        const name = allData.companyName;
+        let company_name = name.split(" ");
+        company_name[0] = company_name[0].replace(/,/g, "");
         $.ajax({
             type: "GET",
-            url: `/api/external/stocks/${res[0].symbol}`
-        }).then(allData => {
-
-            console.log(allData);
-            $.ajax({
-                type: "GET",
-                url: `/api/news/${allData.companyName}`,
-                dataType: "json"
-            }).then(res => console.log(res));
-        })
-
+            url: `/api/news/${company_name[0].toLowerCase()}`,
+            dataType: "json"
+        }).then(responseNews => console.log(responseNews));
     });
 
-
-
 });
+
+
+

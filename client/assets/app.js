@@ -1,6 +1,4 @@
 $(document).ready(function () {
-
-  // Object of stock with : company name, symbol,last value
   $('.carousel').carousel();
 
   // ON CLICKS
@@ -169,17 +167,30 @@ $(document).ready(function () {
 
 
   displayStocksCarousel();
-
-
-
-  $(".btnMoreInfo").on("click", () => {
+  $(".btnMoreInfo").on("click", (event) => {
+    event.preventDefault();
     $.ajax({
       type: "GET",
       url: "/api/user_data",
       dataType: "json"
     }).then(resonseUser => {
       const id = resonseUser.id;
-      window.location.href = `/stockDetails?id=${id}`;
+      $.ajax({
+        type: "GET",
+        url: `/find/${id}`,
+        dataType: "json"
+      }).then(res => {
+        const btnId = parseInt($(".btnMoreInfo").attr("data-id"));
+        const symbolReturn = res.map((symbol, index) => {
+          if (index === btnId) {
+            return symbol.symbol;
+          }
+        });
+        const filtered = symbolReturn.filter(function (x) {
+          return x !== undefined;
+        });
+        window.location.href = `/stockDetails?id=${id}/${filtered}`;
+      });
     });
   });
 
