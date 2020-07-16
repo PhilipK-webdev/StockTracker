@@ -7,41 +7,41 @@ const { seeAllstocks, seeOnestock, staticStocks } = require("../model/externalSt
 const { getCompanyLogo } = require("../model/externalLogoAPI");
 const { getTopHeadlines } = require("../model/externalNewsAPI");
 
-
-
-// Test object
-// const userStocks = [
-//     {
-//         symbol: "AAPL",
-//         company_name: "Apple",
-//         initial_value: 330.61,
-//         last_value: 333.68,
-//         shares: 4
-//     },
-//     {
-//         symbol: "IBM",
-//         company_name: "IBM",
-//         initial_value: 110.37,
-//         last_value: 118.35,
-//         shares: 7
-//     },
-// ]
-
 // STOCKS API
-// Route to get all stocks from user watchlist --> We only get the closing value out of this api, but it is possible to resolve the entire stock information
+// Route to get all stocks  --> We only get the closing value out of this api, but it is possible to resolve the entire stock information
 // example GET : http://localhost:3000/api/external
 router.get("/api/external", (req, res) => {
-    seeAllstocks(userStocks)
+    seeManyStocks(userStocks)
         .then((stocksValue) => res.json({ stocksValue }))
         .catch((err) => res.send(err))
 });
+
+// Route to get all user stocks  
+// example GET : http://localhost:3000/api/external
+router.get("/api/users/:id/watchlist", (req, res) => {
+    let stocksArray = []
+    db.Stock.findAll({
+        where:
+        {
+            UserId: req.params.id,
+        }
+    })
+        .then((userStocks) => {
+            console.log(userStocks);
+
+            stocksArray = userStocks
+            res.json({ stocksArray })
+        })
+})
 
 // Route to get a single stock information
 // example GET : http://localhost:3000/api/external/stocks/MSFT
 router.get("/api/external/stocks/:symbol", (req, res) => {
     const symbol = req.params.symbol;
+    console.log(symbol);
+
     seeOnestock(symbol)
-        .then((stockValue) => res.json({ stockValue }))
+        .then((stock) => res.json(stock))
         .catch((err) => res.send(err))
 });
 
@@ -51,10 +51,13 @@ router.post("/api/users/:id/stocks/:symbol", (req, res) => {
     db.Stock.create({
         UserId: req.params.id,
         symbol: req.params.symbol,
-        company_name: req.params.symbol,
-        inital_value: 10, // careful, typo error in the Stock.js file
-        last_value: 20,
-        shares: 0,
+        company_name: "not needed", // FOR VIRTUAL PORTFOLIO FEATURE
+        inital_value: 10, // FOR VIRTUAL PORTFOLIO FEATURE - careful, typo error in the Stock.js file
+        last_value: 0, // FOR VIRTUAL PORTFOLIO FEATURE
+        shares: 0, // FOR VIRTUAL PORTFOLIO FEATURE
+        createdAt: new Date(),
+        updatedAt: new Date(),
+
     })
         .then(() => res.send({ msg: "successfully added" }))
         .catch((err) => res.send(err));
@@ -85,6 +88,7 @@ router.get("/api/news/:company", (req, res) => {
         .then((articles) => res.json({ articles }))
         .catch((err) => res.send(err))
 });
+
 // LOGO API
 // example GET : http://localhost:3000/api/logo/AAPL
 router.get("/api/logo/:symbol", (req, res) => {
@@ -104,6 +108,13 @@ router.get("/api/stock", (req, res) => {
     }).catch(err => res.send(err));
 });
 
+router.get("/find/:id", (req, res) => {
+    db.Stock.findAll({
+        where: {
+            UserId: req.params.id,
+        }
+    }).then(todo => res.send(todo)).catch(err => res.send(err));
+});
 
 // User Routes:
 router.post("/api/login", passport.authenticate("local"), (req, res) => {
@@ -119,9 +130,17 @@ router.post("/api/register", (req, res) => {
         password: req.body.password,
     })
         .then(() => {
-            res.json({ msg: "success" });
+            res.json({ id: req.user.id });
         })
         .catch((err) => res.status(401).json(err));
+});
+
+router.get("/user/:id", (req, res) => {
+    db.User.findOne({
+        where: {
+            id: req.params.id,
+        }
+    }).then(todo => res.send(todo)).catch(err => res.send(err));
 });
 
 router.get("/logout", (req, res) => {

@@ -21,6 +21,26 @@ const seeAllstocks = (userSymbols) => {
     })
 }
 
+// Function to get all stocks from user watchlist
+const seeAllUserStocks = (userSymbols) => {
+
+    return new Promise((resolve, reject) => {
+        symbolArray = userSymbols.map(a => { return { symbol: a.symbol } })
+        symbolArray.forEach((symbol) => {
+            axios({
+                method: "GET",
+                url: `https://cloud.iexapis.com/stable/stock/${symbol.symbol}/quote?token=${tokenIEX}`,
+                dataType: "json"
+            })
+                .then((response) => {
+                    resolve({ value: response.data.iexClose, companyName: response.data.companyName, evolution: response.data.changePercent })
+                    console.log(response.data.iexClose);
+                })
+                .catch((err) => reject(err))
+        });
+    })
+}
+
 // Function to get information about on specific stock
 const seeOnestock = (symbolName) => {
     return new Promise((resolve, reject) => {
@@ -30,7 +50,7 @@ const seeOnestock = (symbolName) => {
             dataType: "json"
         })
             .then((response) => {
-                resolve(response.data.iexClose)
+                resolve({ value: response.data.iexClose, companyName: response.data.companyName, evolution: response.data.changePercent })
                 console.log(response.data.iexClose);
             })
             .catch((err) => reject(err))
@@ -38,16 +58,26 @@ const seeOnestock = (symbolName) => {
 
 }
 
+
 const staticStocks = () => {
     return new Promise((resolve, reject) => {
         const arrayRandomStock = [];
         let tempArrPromise = [];
-        for (let i = 0; i < 6; i++) {
+        const randomNumbers = [];
+        let i = 0;
+        while (i < 6) {
             let random = Math.floor((Math.random() * staticArrayStocks.length));
-            arrayRandomStock.push(staticArrayStocks[random]);
+            if (!randomNumbers.includes(random)) {
+                randomNumbers.push(random);
+                i++;
+            }
         }
-        for (i = 0; i < arrayRandomStock.length; i++) {
-            tempArrPromise.push(axios.get(`https://cloud.iexapis.com/stable/stock/${arrayRandomStock[i]}/quote?token=${tokenIEX}`))
+
+        for (let j = 0; j < randomNumbers.length; j++) {
+            arrayRandomStock.push(staticArrayStocks[randomNumbers[j]]);
+        }
+        for (let x = 0; x < arrayRandomStock.length; x++) {
+            tempArrPromise.push(axios.get(`https://cloud.iexapis.com/stable/stock/${arrayRandomStock[x]}/quote?token=${tokenIEX}`))
         }
         Promise.all(tempArrPromise)
             .then(responses => {
@@ -57,5 +87,5 @@ const staticStocks = () => {
     });
 }
 
-module.exports = { seeAllstocks, seeOnestock, staticStocks }
+module.exports = { seeAllstocks, seeOnestock, staticStocks, seeAllUserStocks }
 
