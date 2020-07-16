@@ -20,5 +20,8 @@ router.get("/login", (req, res) => {
 router.get("/dashboard", isAuthenticated, (req, res) => {
     res.sendFile(path.join(__dirname, "../client/dashboard.html"));
 });
+router.get("/stockDetails", isAuthenticated, (req, res) => {
+    res.sendFile(path.join(__dirname, "../client/stockDetails.html"));
+});
 
 module.exports = router;
