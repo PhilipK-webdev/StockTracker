@@ -42,18 +42,51 @@ $(document).ready(function () {
       }
     });
   }
+  $(document).on("click", ".newsBtn", function () {
+    console.log($(this).attr("symbol"));
+    const symbolUser = $(this).attr("symbol");
+    $.ajax({
+      type: "GET",
+      url: "/api/user_data",
+      dataType: "json"
+    }).then(resonseUser => {
+      const id = resonseUser.id;
+      $.ajax({
+        type: "GET",
+        url: `/find/${id}`,
+        dataType: "json"
+      }).then(res => {
+        console.log(res);
+        const symbolReturn = res.map((symbol) => {
+          if (symbol.symbol === symbolUser) {
+            return symbol.symbol;
+          }
+        });
+        console.log(symbolReturn);
+        const filtered = symbolReturn.filter(function (x) {
+          return x !== undefined;
+        });
+        console.log(filtered);
+        window.location.href = `/stockDetails?id=${id}/${filtered[0]}`;
+      });
+    });
+  });
 
   const renderWatchList = (symbol) => {
+    console.log(symbol);
     getStockInfo(symbol)
       .then((stock) => {
         console.log(stock);
+        let i = 0;
         $("tbody").append(`
       <tr id="line-${symbol}">
         <td>${stock.companyName}</td>
         <td>${symbol}</td>
         <td>${stock.value} USD</td>
-        <td>${(stock.evolution * 100).toFixed(2)} %</td>
-        <td class="removeBtn" symbol="${symbol}">Remove</td>
+        <td class="percent">${(stock.evolution * 100).toFixed(2)} %</td>
+        <td class="newsBtn" symbol="${symbol}"><i title="More info" style="font-size: 30px; color:#26a69a" class="material-icons">new_releases</i></td>
+        <td class="removeBtn" symbol="${symbol}"><i title="Delete from my Watchlist" style="font-size: 30px; color:#26a69a" class="
+        material-icons">delete_forever</i></td>
       </tr>
 `)
       })
@@ -162,37 +195,9 @@ $(document).ready(function () {
     }).catch(err => console.log(err));
   }
 
-
-
-
-
   displayStocksCarousel();
-  $(".btnMoreInfo").on("click", (event) => {
-    event.preventDefault();
-    $.ajax({
-      type: "GET",
-      url: "/api/user_data",
-      dataType: "json"
-    }).then(resonseUser => {
-      const id = resonseUser.id;
-      $.ajax({
-        type: "GET",
-        url: `/find/${id}`,
-        dataType: "json"
-      }).then(res => {
-        const btnId = parseInt($(".btnMoreInfo").attr("data-id"));
-        const symbolReturn = res.map((symbol, index) => {
-          if (index === btnId) {
-            return symbol.symbol;
-          }
-        });
-        const filtered = symbolReturn.filter(function (x) {
-          return x !== undefined;
-        });
-        window.location.href = `/stockDetails?id=${id}/${filtered}`;
-      });
-    });
-  });
+
+
 
 });
 

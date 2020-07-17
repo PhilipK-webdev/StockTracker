@@ -6,7 +6,7 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
@@ -94,8 +94,10 @@
     <div class="col m6">
       <div class="card">
         <div class="card-image waves-effect waves-block waves-light">
-          <h4 style="padding-left: 15px;" id="compName">{Company Name}</h4>
-          <h6 style="padding-left: 15px;" id="currentDate">{Today's Date}</h6>
+          <h4 style="padding-left: 15px;" id="compName"></h4>
+          <h6 style="padding-left: 15px;">
+            <p id="currentDate"></p>
+          </h6>
           <!-- Insert chartjs here!! -->
           <canvas id="myChart"></canvas>
         </div>
@@ -110,7 +112,7 @@
                     src="https://cloud.iexapis.com/v1/news/image/061126f0-2bac-4b8c-8f33-4e30027f818e" />
                 </td>
                 <td>
-                  <p><a href="#" id="headline">Headline #1</a></p>
+                  <p><a id="headlineOne">Headline #1</a></p>
                 </td>
                 <td id="newsSource" style="font-size: smaller;">Source</td>
                 <td id="newsDate" style="font-size: smaller;">Date</td>
@@ -121,7 +123,7 @@
                     src="https://cloud.iexapis.com/v1/news/image/0ae33934-3b5e-434e-b0ed-6a3676e3fc7a" />
                 </td>
                 <td>
-                  <p><a href="#" id="headline">Headline #2</a></p>
+                  <p><a id="headlineTwo">Headline #2</a></p>
                 </td>
                 <td id="newsSource" style="font-size: smaller;">Source</td>
                 <td id="newsDate" style="font-size: smaller;">Date</td>
@@ -138,3 +140,8 @@
 </body>
 
 </html>
+
+
+
+
+<!--  Origin API_KEY  01b150ff9ac14903973ea0c91ac8d28a -->

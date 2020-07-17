@@ -17,7 +17,7 @@ $(document).ready(function () {
         }
         register(UserRegister).then(register => {
             console.log(register);
-            window.location.href = "/dashboard.html";
+            window.location.href = "/dashboard";
         }).catch(err => console.log(err));
     });
     $("#btn_return").on("click", function (event) {
