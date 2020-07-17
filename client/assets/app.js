@@ -1,8 +1,3 @@
-// document.addEventListener("DOMContentLoaded", function () {
-//   var elems = document.querySelectorAll(".carousel");
-//   var instances = M.Carousel.init(elems, options);
-// });
-
 $(document).ready(function () {
   // Object of stock with : company name, symbol,last value
 
@@ -130,6 +125,36 @@ $(document).ready(function () {
     deleteStockUser(symbol)
   })
 
+  // Button to go to stockdetails page
+  $(document).on("click", ".newsBtn", function () {
+    console.log($(this).attr("symbol"));
+    const symbolUser = $(this).attr("symbol");
+    $.ajax({
+      type: "GET",
+      url: "/api/user_data",
+      dataType: "json"
+    }).then(resonseUser => {
+      const id = resonseUser.id;
+      $.ajax({
+        type: "GET",
+        url: `/find/${id}`,
+        dataType: "json"
+      }).then(res => {
+        console.log(res);
+        const symbolReturn = res.map((symbol) => {
+          if (symbol.symbol === symbolUser) {
+            return symbol.symbol;
+          }
+        });
+        console.log(symbolReturn);
+        const filtered = symbolReturn.filter(function (x) {
+          return x !== undefined;
+        });
+        console.log(filtered);
+        window.location.href = `/stockDetails.html?id=${id}/${filtered[0]}`;
+      });
+    });
+  });
 
   // FUNCTIONS
 
@@ -247,10 +272,6 @@ $(document).ready(function () {
       type: "GET",
       url: `/api/users/${user.id}/watchlist`,
     })
-    // .then((userStocks) => {
-    //   return userStocks
-    //   console.log(userStocks.stocksArray);
-    // });
   }
 });
 

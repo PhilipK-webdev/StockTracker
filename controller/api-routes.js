@@ -63,6 +63,15 @@ router.post("/api/users/:id/stocks/:symbol", (req, res) => {
         .catch((err) => res.send(err));
 });
 
+// Route to get data for one specific stock on stockdetails page
+router.get("/find/:id", (req, res) => {
+    db.Stock.findAll({
+        where: {
+            UserId: req.params.id,
+        }
+    }).then(todo => res.send(todo)).catch(err => res.send(err));
+});
+
 // Route to delete stock from watchlist
 // example DELETE : http://localhost:3000/api/users/1/stocks/MSFT
 
