@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  $(".sidenav").sidenav();
+
   setInterval(function () {
 
     $("#currentDate").text(moment().format("LL HH:mm:ss"));
