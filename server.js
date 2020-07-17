@@ -27,9 +27,9 @@ app.use(clientRoutes);
 const apiRoutes = require("./controller/api-routes");
 app.use(apiRoutes);
 
-app.get("/*", (req, res) => {
-  res.status(404).json({ msg: "404 error NOT FOUND" });
-});
+// app.get("/*", (req, res) => {
+//   res.status(404).json({ msg: "404 error NOT FOUND" });
+// });
 
 // Connection with the database:
 db.sequelize.sync().then(() => {
