@@ -1,79 +1,71 @@
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
-    />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
 
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
-    <style>
-      body {
-        background-image: url("./assets/img/screens.jpg");
-        background-size: cover;
-        background-color: #212121;
-      }
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
-      body img {
-        width: 100%;
-        height: 100%;
-      }
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <style>
+    body {
+      background-image: url("./assets/img/screens.jpg");
+      background-size: cover;
+      background-color: #212121;
+    }
 
-      .register {
-        margin-top: 100px;
-        color: white;
-      }
+    body img {
+      width: 100%;
+      height: 100%;
+    }
 
-      .register .card {
-        opacity: 0.75;
-      }
+    .register {
+      margin-top: 100px;
+      color: white;
+    }
 
-      .register h4 {
-        color: #76ff03;
-      }
+    .register .card {
+      opacity: 0.75;
+    }
 
-      .register label {
-        font-size: 16px;
-        color: rgb(100, 100, 100);
-      }
+    .register h4 {
+      color: #76ff03;
+    }
 
-      .register input {
-        font-size: 22px !important;
-        color: rgb(100, 100, 100);
-      }
+    .register label {
+      font-size: 16px;
+      color: rgb(100, 100, 100);
+    }
 
-      .register #btn_login:hover {
-        color: #76ff03;
-        padding: 0px 40px;
-      }
+    .register input {
+      font-size: 22px !important;
+      color: rgb(100, 100, 100);
+    }
 
-      .register #btn_return:hover {
-        color: #424242;
-        padding: 0px 40px;
-      }
-    </style>
+    .register #btn_login:hover {
+      color: #76ff03;
+      padding: 0px 40px;
+    }
 
-    <title>StocksTracker</title>
-  </head>
+    .register #btn_return:hover {
+      color: #424242;
+      padding: 0px 40px;
+    }
+  </style>
 
-  <body>
-    <!-- Ticker-tape widget header - BEGINS -->
-    <header class="conatiner-outer">
-      <div class="container-width">
-        <script
-          type="text/javascript"
-          src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js"
-          async
-        >
+  <title>StocksTracker</title>
+</head>
+
+<body>
+  <!-- Ticker-tape widget header - BEGINS -->
+  <header class="conatiner-outer">
+    <div class="container-width">
+      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js"
+        async>
           {
             "symbols": [
               {
@@ -103,103 +95,91 @@
                     "locale": "en"
           }
         </script>
-      </div>
-    </header>
-    <!-- Ticker-tape widget header - ENDS -->
+    </div>
+  </header>
+  <!-- Ticker-tape widget header - ENDS -->
 
-    <nav>
-      <div class="nav-wrapper grey darken-4" style="padding-left: 30px;">
-        <a href="/index" class="brand-logo light-green-text text-accent-3"
-          >$tockTracker</a
-        >
-        <a href="#" class="sidenav-trigger" data-target="mobile_menu"
-          ><i class="material-icons">menu</i></a
-        >
-        <ul class="hide-on-med-and-down right">
-          <!-- <li><a href="register.html">REGISTER</a></li> -->
-          <li><a href="/login">LOGIN</a></li>
-        </ul>
-      </div>
-    </nav>
+  <nav>
+    <div class="nav-wrapper grey darken-4" style="padding-left: 30px;">
+      <a href="/index" class="brand-logo light-green-text text-accent-3">$tockTracker</a>
+      <a href="#" class="sidenav-trigger" data-target="mobile_menu"><i class="material-icons">menu</i></a>
+      <ul class="hide-on-med-and-down right">
+        <!-- <li><a href="register.html">REGISTER</a></li> -->
+        <li><a href="/login">LOGIN</a></li>
+      </ul>
+    </div>
+  </nav>
 
-    <ul class="sidenav" id="mobile_menu">
-      <li><a href="/index">HOME</a></li>
-      <li><a href="/login">LOGIN</a></li>
-    </ul>
+  <ul class="sidenav" id="mobile_menu">
+    <li><a href="/index">HOME</a></li>
+    <li><a href="/login">LOGIN</a></li>
+  </ul>
 
-    <!-- Register form -->
-    <div class="row register">
-      <div class="col s12 l4 offset-l4">
-        <div class="card">
-          <div class="card-action">
-            <h4>Register</h4>
+  <!-- Register form -->
+  <div class="row register">
+    <div class="col s12 l4 offset-l4">
+      <div class="card">
+        <div class="card-action">
+          <h4>Register</h4>
+        </div>
+        <div class="card-content">
+          <div class="row">
+            <div class="input-field col s6">
+              <input id="first_name" type="text" class="validate" />
+              <label for="first_name">First Name</label>
+            </div>
+            <div class="input-field col s6">
+              <input id="last_name" type="text" class="validate" />
+              <label for="last_name">Last Name</label>
+            </div>
           </div>
-          <div class="card-content">
-            <div class="row">
-              <div class="input-field col s6">
-                <input id="first_name" type="text" class="validate" />
-                <label for="first_name">First Name</label>
-              </div>
-              <div class="input-field col s6">
-                <input id="last_name" type="text" class="validate" />
-                <label for="last_name">Last Name</label>
-              </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="email" type="email" class="validate" />`
+              <label for="email">Email</label>
             </div>
-            <div class="row">
-              <div class="input-field col s12">
-                <input id="email" type="email" class="validate" />`
-                <label for="email">Email</label>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="input-field col s12">
-                <input id="username" type="text" class="validate" />
-                <label for="username">Username</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="input-field col s12">
-                <input id="password" type="password" class="validate" />
-                <label for="password">Password</label>
-              </div>
-            </div>
-            <div class="alert alert-success hide">
-              Registration complete.
-            </div>
-            <div class="form-field">
-              <button
-                class="btn-large light green waves-effect waves-dark"
-                style="width: 100%;"
-                id="btn_register"
-                type="submit"
-              >
-                Register
-              </button>
-            </div>
-            <br />
-            <div class="form-field">
-              <button
-                class="btn-large grey darken-3"
-                style="width: 100%;"
-                id="btn_return"
-                type="submit"
-              >
-                Return to Homepage
-              </button>
-            </div>
-            <br />
           </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="username" type="text" class="validate" />
+              <label for="username">Username</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="password" type="password" class="validate" />
+              <label for="password">Password</label>
+            </div>
+          </div>
+          <div class="alert alert-success hide">
+            Registration complete.
+          </div>
+          <div class="form-field">
+            <button class="btn-large light green waves-effect waves-dark" style="width: 100%;" id="btn_register"
+              type="submit">
+              Register
+            </button>
+          </div>
+          <br />
+          <div class="form-field">
+            <button class="btn-large grey darken-3" style="width: 100%;" id="btn_return" type="submit">
+              Return to Homepage
+            </button>
+          </div>
+          <br />
         </div>
       </div>
     </div>
+  </div>
 
-    <script>
-      $(document).ready(function () {
-        $(".sidenav").sidenav();
-      });
-    </script>
+  <script>
+    $(document).ready(function () {
+      $(".sidenav").sidenav();
+    });
+  </script>
 
-    <script src="./assets/register.js"></script>
-  </body>
+  <script src="./assets/register.js"></script>
+</body>
+
 </html>
