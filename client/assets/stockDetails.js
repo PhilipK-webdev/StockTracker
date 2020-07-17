@@ -1,49 +1,63 @@
-// $(document).ready(function () {
-//   const urlParams = new URLSearchParams(window.location.search);
-//   const id = urlParams.get("id");
-// });
-
 $(document).ready(function () {
   $(".sidenav").sidenav();
+  const urlParams = new URLSearchParams(window.location.search.substring(0));
+  const idAndSymbolString = urlParams.get("id");
+  const arrOfSymbolAndId = idAndSymbolString.split("/");
+  $.ajax({
+    type: "GET",
+    url: `/api/external/stocks/${arrOfSymbolAndId[1]}`
+  }).then(allData => {
+    console.log(allData);
+    const name = allData.companyName;
+    let company_name = name.split(" ");
+    company_name[0] = company_name[0].replace(/,/g, "");
+    $.ajax({
+      type: "GET",
+      url: `/api/news/${company_name[0].toLowerCase()}`,
+      dataType: "json"
+    }).then(responseNews => console.log(responseNews));
+  });
+
 });
 
-const tokenIEX = "pk_723f0373466e46fa8549c7f632ef69f1";
-const symbol = "AAPL";
-const intradayUrl = `https://cloud.iexapis.com/stable/stock/${symbol}/intraday-prices?token=${tokenIEX}`;
+// const tokenIEX = "pk_723f0373466e46fa8549c7f632ef69f1";
+// const symbol = "AAPL";
+// const intradayUrl = `https://cloud.iexapis.com/stable/stock/${symbol}/intraday-prices?token=${tokenIEX}`;
 
-axios
-  .get(intradayUrl)
-  .then((responseFromAPI) => {
-    printTheChart(responseFromAPI.data);
-  })
-  .catch((err) => console.log("Error while getting the data: ", err));
+// axios
+//   .get(intradayUrl)
+//   .then((responseFromAPI) => {
+//     printTheChart(responseFromAPI.data);
+//   })
+//   .catch((err) => console.log("Error while getting the data: ", err));
 
-function printTheChart(stockData) {
-  let labelArray = [];
-  let labels = stockData.forEach((item) => {
-    console.log(item.label);
-    labelArray.push(item.label);
-  });
+// function printTheChart(stockData) {
+//   let labelArray = [];
+//   let labels = stockData.forEach((item) => {
+//     console.log(item.label);
+//     labelArray.push(item.label);
+//   });
 
-  let priceArray = [];
-  let prices = stockData.forEach((item) => {
-    console.log(item.close);
-    priceArray.push(item.close);
-  });
+//   let priceArray = [];
+//   let prices = stockData.forEach((item) => {
+//     console.log(item.close);
+//     priceArray.push(item.close);
+//   });
 
-  const ctx = document.getElementById("myChart").getContext("2d");
-  const chart = new Chart(ctx, {
-    type: "line",
-    data: {
-      labels: labelArray,
-      datasets: [
-        {
-          label: "Real-Time stock Price",
-          backgroundColor: "#757575",
-          borderColor: "#757575",
-          data: priceArray,
-        },
-      ],
-    },
-  });
-}
+//   const ctx = document.getElementById("myChart").getContext("2d");
+//   const chart = new Chart(ctx, {
+//     type: "line",
+//     data: {
+//       labels: labelArray,
+//       datasets: [
+//         {
+//           label: "Real-Time stock Price",
+//           backgroundColor: "#757575",
+//           borderColor: "#757575",
+//           data: priceArray,
+//         },
+//       ],
+//     },
+//   });
+// }
+

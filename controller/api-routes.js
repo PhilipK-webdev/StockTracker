@@ -2,8 +2,7 @@ const express = require("express");
 const router = express.Router();
 const db = require("../models");
 const passport = require("../config/passport");
-const axios = require("axios");
-const { seeAllstocks, seeOnestock, staticStocks } = require("../model/externalStockAPI")
+const { seeOnestock, staticStocks } = require("../model/externalStockAPI")
 const { getCompanyLogo } = require("../model/externalLogoAPI");
 const { getTopHeadlines } = require("../model/externalNewsAPI");
 
@@ -39,7 +38,6 @@ router.get("/api/users/:id/watchlist", (req, res) => {
 router.get("/api/external/stocks/:symbol", (req, res) => {
     const symbol = req.params.symbol;
     console.log(symbol);
-
     seeOnestock(symbol)
         .then((stock) => res.json(stock))
         .catch((err) => res.send(err))
@@ -52,7 +50,7 @@ router.post("/api/users/:id/stocks/:symbol", (req, res) => {
         UserId: req.params.id,
         symbol: req.params.symbol,
         company_name: "not needed", // FOR VIRTUAL PORTFOLIO FEATURE
-        inital_value: 10, // FOR VIRTUAL PORTFOLIO FEATURE - careful, typo error in the Stock.js file
+        inital_value: 0, // FOR VIRTUAL PORTFOLIO FEATURE - careful, typo error in the Stock.js file
         last_value: 0, // FOR VIRTUAL PORTFOLIO FEATURE
         shares: 0, // FOR VIRTUAL PORTFOLIO FEATURE
         createdAt: new Date(),
@@ -98,6 +96,7 @@ router.get("/api/logo/:symbol", (req, res) => {
         .catch((err) => res.send(err))
 });
 
+// Route to get our static stocks for carousel;
 router.get("/api/stock", (req, res) => {
     staticStocks().then((response) => {
         const tempArr = [];
@@ -107,7 +106,7 @@ router.get("/api/stock", (req, res) => {
         res.json(tempArr);
     }).catch(err => res.send(err));
 });
-
+// Route to ger all the stocks that user have
 router.get("/find/:id", (req, res) => {
     db.Stock.findAll({
         where: {
@@ -117,10 +116,11 @@ router.get("/find/:id", (req, res) => {
 });
 
 // User Routes:
+// Login User 
 router.post("/api/login", passport.authenticate("local"), (req, res) => {
     res.json({ username: req.user.username, id: req.user.id });
 });
-
+// Create User - register;
 router.post("/api/register", (req, res) => {
     db.User.create({
         firstname: req.body.firstname,
@@ -134,15 +134,7 @@ router.post("/api/register", (req, res) => {
         })
         .catch((err) => res.status(401).json(err));
 });
-
-router.get("/user/:id", (req, res) => {
-    db.User.findOne({
-        where: {
-            id: req.params.id,
-        }
-    }).then(todo => res.send(todo)).catch(err => res.send(err));
-});
-
+// Logout User
 router.get("/logout", (req, res) => {
     req.logout();
     res.redirect("/");
