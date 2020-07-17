@@ -4,181 +4,120 @@
 // });
 
 $(document).ready(function () {
-
   // Object of stock with : company name, symbol,last value
-
-  //Caroussel test
-  $(document).ready(function () {
-    $('.slider').slider({ full_width: true });
-  });
-
-  // New test
-  //   setTimeout(function () {
-  //     addItem()
-  //   }, 2000);
-  // });
-
-
-  // function createItem() {
-  //   //class="active" style="opacity: 1;"
-  //   return '<li > ' +
-  //     '<img src="http://lorempixel.com/580/250/nature/4"> ' +
-  //     '<div class="caption center-align"> ' +
-  //     '<h3>Novo item ' + itens.length + '!</h3> ' +
-  //     '<h5 class="light grey-text text-lighten-3">Here our small slogan.</h5>' +
-  //     '</div>' +
-  //     '</li>';
-  // }
-
-  // let itens = [];
-  // function addItem() {
-  //   $('.slides').empty();
-  //   $('.slider > .indicators').detach();
-
-  //   itens.push(createItemSlider());
-
-  //   for (i in itens) {
-  //     $('.slides').append(itens[i]);
-  //   }
-
-  //   $('.slider').slider();
-
-  //   showItem(i);
-  // }
 
   function showItem(i) {
     $('.slider > .indicators > .indicator-item')[i].click();
   }
-  // end new test
 
+  // Function for slider start
   const slidesStart = () => {
-    let itens = [];
-    $('.slides').empty();
-    $('.slider > .indicators').detach();
-
-    itens.push(createItemSlider());
-
-    for (i in itens) {
-      $('.slides').append(itens[i]);
-    }
-
-    $('.slider').slider();
-
-    showItem(i);
-
 
     objStock().then(async (popularStock) => {
       console.log("my popular stocks", popularStock)
       // // console.log();
       for (i = 0; i < 5; i++) {
         let symbol = popularStock[i].symbol
-        let company1 = popularStock[i].companyName.split(" ")[0]
-        let company2 = company1.replace(",", "")
+        let stockValue = popularStock[i].iexRealtimePrice
+        let companyParts = popularStock[i].companyName.split(" ")[0]
+        let company = companyParts.replace(",", "")
 
-        await getNews(company2).then((res) => {
-          urlImgArticle = res.map(a => {
-            return a.urlToImage
-          })
-        })
-        await getNews(company2).then((res) => {
-          headlineArticle = res.map(a => {
-            return a.title
-          })
-        })
-        let imgTransit = JSON.stringify(urlImgArticle)
-        let img1 = imgTransit.replace("[", "")
-        let img2 = img1.replace("]", "")
+        let companyNews = await getNews(company) // { urlToImage: '', headerTitle: '' }
+        const finalImage = companyNews.urlToImage
+        const finalTitle = companyNews.title
 
-
-        if (headlineArticle !== "") {
-          console.log("company name", company2);
-          console.log("title", headlineArticle);
-          console.log("last img", img2);
-
-          createItemSlider(img2, company2, headlineArticle)
+        if (finalTitle !== "" && finalTitle !== undefined) {
+          createItemSlider(finalImage, company, stockValue, finalTitle, symbol)
         }
       }
+
+      $('.slider').slider({ full_width: true });
+      $('.indicators').hide();
     })
   }
 
-  const createItemSlider = (imgLink, company, title) => {
-    return '<li > ' +
-      '<img src= ' + imgLink + '> ' +
-      '<div class="caption left-align"> ' +
-      '<h3>' + company + '</h3> ' +
-      '<h5 class="light grey-text text-lighten-3">' + title + '</h5>' +
-      '<h6 class="light grey-text text-lighten-3">' + title + '</h6>' +
-      '</div>' +
-      '</li>';
-
+  // Function to create all items for slider
+  const createItemSlider = (imgLink, company, stockValue, title, symbol) => {
+    $(".slides").prepend(`
+      <li>
+      <img src="${imgLink}">
+        <div class="caption left-align">
+          <h3>${company}</h3>
+          <h4>Stock value : ${stockValue} $</h4>
+          <h5 class="light grey-text text-lighten-3">${title}</h5>
+          <div class="col s2"><a symbol="${symbol}" class="addPopular waves-effect waves-light btn">Add</a></div>
+        </div>
+      </li>`)
   }
 
-  // $(".slides").prepend(`
-  // <li class="" style="opacity: 0; transform: translateX(0px) translateY(0px);">
-  // <img src="https://techcrunch.com/wp-content/uploads/2020/07/GettyImages-1227124569.jpg?w=600" style="background-image: url('https://techcrunch.com/wp-content/uploads/2020/07/GettyImages-1227124569.jpg?w=600');">
-  //   <div class="caption left-align" style="opacity: 1; transform: translateX(0px) translateY(0px);">
-  //     <h3>${company}</h3>
-  //     <h5 class="light grey-text text-lighten-3">${title}</h5>
-  //   </div>
-  // </li>
-  // `)
-  // $(".indicators").append(`
-  // <li class="indicator-item"></li>
-  // `)
-
-
-  // /api/news /:company
-  // /api/logo/:symbol
-
-  const getLogo = (symbol) => {
-    return $.ajax({
-      type: "GET",
-      url: `/api/logo/${symbol}`,
-    })
-
-  }
+  // Function to get news
   const getNews = (company) => {
     return new Promise((resolve, reject) => {
       $.ajax({
         type: "GET",
         url: `/api/news/${company}`,
       }).then((res) => {
-        // console.log("these are the articles", res.articles.articles);
-        resolve(res.articles.articles)
-
-
-        return res.articles.articles
+        const result = res.articles.articles[0] || { urlToImage: 'http://default.pix', headerTitle: 'No Title ahah' }
+        resolve(result)
       })
         .catch(err => reject(err))
     })
   }
 
-  //caroussel test end
-
-  $('.carousel').carousel();
-  displayStocksCarousel();
+  // OLD Caroussel system initialization
+  // $('.carousel').carousel();
+  // displayStocksCarousel();
 
   // INIT FUNCTIONS
 
+
+  $("#welcomeText").hide()
+  $(".highlight").show()
   setTimeout(function () { init(); }, 100);
 
   const init = async () => {
     if (window.location.href.endsWith("dashboard.html")) {
-      await loadWatchlist()
       await slidesStart()
+      await loadWatchlist()
     }
+
+    userStocks()
+      .then((res) => {
+        console.log(res.stocksArray);
+
+        if (res.stocksArray == "") {
+          $("#welcomeText").show()
+          $(".highlight").hide()
+        } else {
+          $(".highlight").show()
+          $("#welcomeText").hide()
+        }
+      })
   }
 
 
   // ON CLICKS
 
+  // Button to add one of the popular stocks
+
+  $(document).on("click", ".addPopular", function () {
+    const symbol = $(this).attr("symbol")
+
+    renderWatchList(symbol)
+    $(".highlight").show()
+    $("#welcomeText").hide()
+    addStockUser(symbol).then((msg) => {
+      console.log("Success message", msg);
+    })
+  })
+
   // Button to add to watchlist table, launch requests to retreive close value, and add to user stocks
   $("#addBtn").on("click", () => {
-
-    const company = $("#autocomplete").html()
     const symbol = $("#selected_option").html()
 
     renderWatchList(symbol)
+    $(".highlight").show()
+    $("#welcomeText").hide()
     addStockUser(symbol).then((msg) => {
       console.log("Success message", msg);
     })
@@ -281,6 +220,8 @@ $(document).ready(function () {
     })
   }
 
+
+  // Function to load the watchlist from the user (database)
   const loadWatchlist = async () => {
     const user = await getUserInfo()
 
@@ -294,14 +235,26 @@ $(document).ready(function () {
       stocks.forEach((symbol) => {
         renderWatchList(symbol.symbol)
       })
-      console.log(userStocks);
     })
 
   }
 
+  // Function to know if the user as stocks in watchlist
+  const userStocks = async () => {
+    const user = await getUserInfo()
 
+    return $.ajax({
+      type: "GET",
+      url: `/api/users/${user.id}/watchlist`,
+    })
+    // .then((userStocks) => {
+    //   return userStocks
+    //   console.log(userStocks.stocksArray);
+    // });
+  }
 });
 
+// Function to get array of popular stocks
 const objStock = () => {
   return new Promise((resolve, reject) => {
     $.ajax({
@@ -313,6 +266,7 @@ const objStock = () => {
 
 }
 
+// Function to get the symbol of an array of stocks
 const getSymbol = (objStock) => {
   return new Promise((resolve, reject) => {
     let tempArrPromise = [];
@@ -331,12 +285,7 @@ const getSymbol = (objStock) => {
   });
 }
 
-
-
-
-
-
-
+// Function to display stocks on the caroussel
 function displayStocksCarousel() {
   objStock().then(responseObjStockStatic => {
     const objStock = [];
@@ -369,5 +318,7 @@ function displayStocksCarousel() {
     }).catch(err => console.log(err));
   }).catch(err => console.log(err));
 }
+
+
 
 
