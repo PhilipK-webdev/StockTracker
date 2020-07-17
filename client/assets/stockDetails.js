@@ -37,15 +37,15 @@ $(document).ready(function () {
         $("#compName").text(company_name[0]);
       }
     });
+    $.ajax({
+      type: "GET",
+      url: `/api/${arrOfSymbolAndId[1]}`,
+      datatype: "json",
+    }).then((responseFromAPI) => {
+      // console.log(responseFromAPI.companyLogo);
+      printTheChart(responseFromAPI.companyLogo);
+    });
   });
-  const tokenIEX = "pk_723f0373466e46fa8549c7f632ef69f1";
-  const intradayUrl = `https://cloud.iexapis.com/stable/stock/${arrOfSymbolAndId[1]}/intraday-prices?token=${tokenIEX}`;
-  axios
-    .get(intradayUrl)
-    .then((responseFromAPI) => {
-      printTheChart(responseFromAPI.data);
-    })
-    .catch((err) => console.log("Error while getting the data: ", err));
 
   function printTheChart(stockData) {
     let labelArray = [];
@@ -68,8 +68,8 @@ $(document).ready(function () {
         datasets: [
           {
             label: "Real-Time stock Price",
-            backgroundColor: "#757575",
-            borderColor: "#757575",
+            backgroundColor: "#76ff03",
+            borderColor: "#76ff03",
             data: priceArray,
           },
         ],
