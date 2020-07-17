@@ -1,9 +1,9 @@
 $(document).ready(function () {
   // Object of stock with : company name, symbol,last value
 
-  function showItem(i) {
-    $('.slider > .indicators > .indicator-item')[i].click();
-  }
+  // function showItem(i) {
+  //   $('.slider > .indicators > .indicator-item')[i].click();
+  // }
 
   // Function for slider start
   const slidesStart = () => {
@@ -71,7 +71,7 @@ $(document).ready(function () {
   setTimeout(function () { init(); }, 100);
 
   const init = async () => {
-    if (window.location.href.endsWith("dashboard.html")) {
+    if (window.location.href.endsWith("/dashboard")) {
       await slidesStart()
       await loadWatchlist()
     }
@@ -175,6 +175,7 @@ $(document).ready(function () {
     });
   });
 
+
   const renderWatchList = (symbol) => {
     console.log(symbol);
     getStockInfo(symbol)
@@ -256,7 +257,6 @@ $(document).ready(function () {
   // Function to know if the user as stocks in watchlist
   const userStocks = async () => {
     const user = await getUserInfo()
-
     return $.ajax({
       type: "GET",
       url: `/api/users/${user.id}/watchlist`,

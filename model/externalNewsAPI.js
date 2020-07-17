@@ -1,11 +1,7 @@
 const axios = require("axios");
-<<<<<<< HEAD
-const apiKey = process.env.APIKEYNEWS; // NewsAPI
-=======
-const apiKey = "b8a67989b17944e2bf1782fa77bd7b92" // NewsAPI
+const apiKey = "01b150ff9ac14903973ea0c91ac8d28a"  // NewsAPI
 // b8a67989b17944e2bf1782fa77bd7b92
 // original : 01b150ff9ac14903973ea0c91ac8d28a
->>>>>>> hedical-master
 
 // https://newsapi.org/v2/top-headlines?q=google&apiKey=01b150ff9ac14903973ea0c91ac8d28a
 

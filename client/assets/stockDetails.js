@@ -1,4 +1,3 @@
-
 $(document).ready(function () {
   $(".sidenav").sidenav();
   setInterval(function () {
@@ -23,7 +22,6 @@ $(document).ready(function () {
       dataType: "json"
     }).then(responseNews => {
       if (responseNews.articles.articles.length !== 0) {
-
         const urlOne = responseNews.articles.articles[0].url;
         const urlTwo = responseNews.articles.articles[1].url;
         $("#headlineOne").attr("href", `${urlOne}`);
@@ -34,7 +32,6 @@ $(document).ready(function () {
 
       }
       else {
-
         const urlOne = "https://www.metastock.com/"
         const urlTwo = "https://www.bloomberg.com/"
         $("#headlineOne").attr("href", `${urlOne}`);
