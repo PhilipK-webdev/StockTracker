@@ -8,53 +8,47 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
   <!-- <link rel="stylesheet" href="./assets/style/index.css"> -->
-
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
-
-
-  <title>Stocks Tracker</title>
 </head>
-<header class="conatiner-outer">
-  <!-- <div class="container-inner"> -->
-  <div class="container-width">
-    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js"
-      async>
-        {
-          "symbols": [
-            {
-              "proName": "FOREXCOM:SPXUSD",
-              "title": "S&P 500"
-            },
-            {
-              "proName": "FOREXCOM:NSXUSD",
-              "title": "Nasdaq 100"
-            },
-            {
-              "proName": "FX_IDC:EURUSD",
-              "title": "EUR/USD"
-            },
-            {
-              "proName": "BITSTAMP:BTCUSD",
-              "title": "BTC/USD"
-            },
-            {
-              "proName": "BITSTAMP:ETHUSD",
-              "title": "ETH/USD"
-            }
-          ],
-            "colorTheme": "dark",
-              "isTransparent": false,
-                "displayMode": "adaptive",
-                  "locale": "en"
-        }
-      </script>
-  </div>
-  <!-- </div> -->
-</header>
-<!-- Ticker-tape widget header - ENDS -->
 
 <body>
+  <header class="conatiner-outer">
+    <!-- <div class="container-inner"> -->
+    <div class="container-width">
+      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js"
+        async>
+          {
+            "symbols": [
+              {
+                "proName": "FOREXCOM:SPXUSD",
+                "title": "S&P 500"
+              },
+              {
+                "proName": "FOREXCOM:NSXUSD",
+                "title": "Nasdaq 100"
+              },
+              {
+                "proName": "FX_IDC:EURUSD",
+                "title": "EUR/USD"
+              },
+              {
+                "proName": "BITSTAMP:BTCUSD",
+                "title": "BTC/USD"
+              },
+              {
+                "proName": "BITSTAMP:ETHUSD",
+                "title": "ETH/USD"
+              }
+            ],
+              "colorTheme": "dark",
+                "isTransparent": false,
+                  "displayMode": "adaptive",
+                    "locale": "en"
+          }
+        </script>
+    </div>
+    <!-- </div> -->
+  </header>
+  <!-- Ticker-tape widget header - ENDS -->
   <nav class="nav-wraper grey darken-4">
     <div class="container">
       <a href="#" class="brand-logo light-green-text text-accent-3">$TOCKTRACKER</a>
@@ -67,15 +61,16 @@
       </ul>
     </div>
   </nav>
-  <div class="container">
+
+
+  <!-- <div class="container">
     <div class="row">
       <div class="col-sm-12">
-        <div class="carousel" style="height: 450px !important;" data-indicators="true">
+        <div class="carousel" style="height: 450px !important;">
           <div class="card">
             <a class="carousel-item" id="one0">
               <div class="card-image" style="width: 120px;height:120px;">
                 <img id="img0" src="">
-                <button type="submit" class="btnSubmit" data-id="0">Add ME</button>
               </div>
             </a>
           </div>
@@ -83,7 +78,6 @@
             <a class="carousel-item" id="one1">
               <div class="card-image" style="width: 120px;height:120px;">
                 <img id="img1" src="">
-                <button type="submit" class="btnSubmit" data-id="1">Add ME</button>
               </div>
             </a>
           </div>
@@ -91,7 +85,6 @@
             <a class="carousel-item" id="one2">
               <div class="card-image" style="width: 120px;height:120px;">
                 <img id="img2" src="">
-                <button type="submit" class="btnSubmit" data-id="2">Add ME</button>
               </div>
             </a>
           </div>
@@ -99,7 +92,6 @@
             <a class="carousel-item" id="one3">
               <div class="card-image" style="width: 120px;height:120px;">
                 <img id="img3" src="">
-                <button type="submit" class="btnSubmit" data-id="3">Add ME</button>
               </div>
             </a>
           </div>
@@ -107,7 +99,6 @@
             <a class="carousel-item" id="one4">
               <div class="card-image" style="width: 120px;height:120px;">
                 <img id="img4" src="">
-                <button type="submit" class="btnSubmit" data-id="4">Add ME</button>
               </div>
             </a>
           </div>
@@ -115,27 +106,61 @@
             <a class="carousel-item" id="one5">
               <div class="card-image" style="width: 120px;height:120px;">
                 <img id="img5" src="">
-                <button type="submit" class="btnSubmit" data-id="5">Add ME</button>
               </div>
             </a>
           </div>
         </div>
       </div>
     </div>
-    <button id="testBtn">stocks of user</button>
+  </div> -->
+
+
+  <!-- test -->
+
+  <div class="slider materialboxed">
+    <ul class="slides">
+      <li>
+        <img src="https://techcrunch.com/wp-content/uploads/2020/07/GettyImages-1227124569.jpg?w=600">
+        <!-- random image -->
+        <div class="caption left-align">
+          <h3>Welcome to StockTracker !</h3>
+          <h5 class="light grey-text text-lighten-3">StocksTracker is the best solution to find stocks information</h5>
+        </div>
+      </li>
+    </ul>
   </div>
+
+  <!-- barre search -->
+  <!-- <div class="container">
+  <div class="nav-wrapper">
+    <form>
+      <p>Looking for a specific stock?</p>
+      <div style="background-color:#e0f2f1; height: 50px;" class="input-field">
+
+        <input id="search" type="search" required>
+        <label class="label-icon" for="search"></label>
+        <i class="material-icons">close</i>
+      </div>
+    </form>
+  </div>
+</div> -->
+
+  <!-- test -->
+
+
   <div class="container" style="margin-top: 20px;">
+    <h4 id="welcomeText" class="col s12">Why don't you try to track your first stock to your watchlist?</h4>
     <div class="row">
       <form class="col s12">
         <div class="row">
-          <div class="input-field col s6">
+          <div class="input-field col s12">
             <input id="autocomplete" type="text" data-length="10">
-            <label for="autocomplete">Search a stock</label>
-            <a id="addBtn" class="waves-effect waves-light btn">Add</a>
+            <label for="autocomplete">Looking for a specific stock?</label>
             <div>
               Selected Option : <span class="label label-default" id="selected_option"></span>
             </div>
           </div>
+          <div class="col s2"><a id="addBtn" class="waves-effect waves-light btn">Add</a></div>
         </div>
         <table class="highlight">
           <thead>
@@ -144,18 +169,13 @@
               <th>Stock symbol</th>
               <th>Stock price</th>
               <th>% change</th>
-              <th>Action</th>
+              <th></th>
             </tr>
           </thead>
 
           <tbody>
             <tr id="AAPL">
-              <td>Apple</td>
-              <td>AAPL</td>
-              <td>200 $</td>
-              <td>5 %</td>
-              <td class="test">Remove</td>
-              <td><button type="submit" class="btnMoreInfo" data-id="0">MoreInfo</button></td>
+
             </tr>
           </tbody>
         </table>
@@ -169,6 +189,3 @@
   <script
     src="https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.2.27/jquery.autocomplete.min.js"></script>
   <script src="./assets/app.js"></script>
-</body>
-
-</html>
