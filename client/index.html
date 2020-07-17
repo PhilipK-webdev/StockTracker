@@ -1,37 +1,45 @@
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-image: url("./assets/img/retirement.jpg");
+        background-size: cover;
+        background-color: #212121;
+      }
 
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-  <style>
-    body {
-      background-image: url("./assets/img/retirement.jpg");
-      background-size: cover;
-      background-color: #212121;
-    }
+      body img {
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+    <title>StocksTracker</title>
+  </head>
 
-    body img {
-      width: 100%;
-      height: 100%;
-    }
-  </style>
-  <title>StocksTracker</title>
-</head>
-
-<body>
-  <!-- Ticker-tape widget header - BEGINS -->
-  <header class="conatiner-outer">
-    <div class="container-width">
-      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js"
-        async>
+  <body>
+    <!-- Ticker-tape widget header - BEGINS -->
+    <header class="conatiner-outer">
+      <div class="container-width">
+        <script
+          type="text/javascript"
+          src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js"
+          async
+        >
           {
             "symbols": [
               {
@@ -61,31 +69,34 @@
                     "locale": "en"
           }
         </script>
-    </div>
-  </header>
-  <!-- Ticker-tape widget header - ENDS -->
+      </div>
+    </header>
+    <!-- Ticker-tape widget header - ENDS -->
 
-  <nav>
-    <div class="nav-wrapper grey darken-4" style="padding-left: 30px;">
-      <a href="index.html" class="brand-logo light-green-text text-accent-3">$tockTracker</a>
-      <a href="#" class="sidenav-trigger" data-target="mobile_menu"><i class="material-icons">menu</i></a>
-      <ul class="hide-on-med-and-down right">
-        <li><a href="register.html">REGISTER</a></li>
-        <li><a href="login.html">LOGIN</a></li>
-      </ul>
-    </div>
-  </nav>
+    <nav>
+      <div class="nav-wrapper grey darken-4" style="padding-left: 30px;">
+        <a href="/index" class="brand-logo light-green-text text-accent-3"
+          >$tockTracker</a
+        >
+        <a href="#" class="sidenav-trigger" data-target="mobile_menu"
+          ><i class="material-icons">menu</i></a
+        >
+        <ul class="hide-on-med-and-down right">
+          <li><a href="/register">REGISTER</a></li>
+          <li><a href="/login">LOGIN</a></li>
+        </ul>
+      </div>
+    </nav>
 
-  <ul class="sidenav" id="mobile_menu">
-    <li><a href="register.html">REGISTER</a></li>
-    <li><a href="login.html">LOGIN</a></li>
-  </ul>
+    <ul class="sidenav" id="mobile_menu">
+      <li><a href="/register">REGISTER</a></li>
+      <li><a href="/login">LOGIN</a></li>
+    </ul>
 
-  <script>
-    $(document).ready(function () {
-      $(".sidenav").sidenav();
-    });
-  </script>
-</body>
-
+    <script>
+      $(document).ready(function () {
+        $(".sidenav").sidenav();
+      });
+    </script>
+  </body>
 </html>
