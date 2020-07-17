@@ -1,17 +1,15 @@
 $(document).ready(function () {
-
   setInterval(function () {
-
     $("#currentDate").text(moment().format("LL HH:mm:ss"));
-  }, 1000)
+  }, 1000);
 
-  const urlParams = new URLSearchParams(window.location.search.substring(0));
+  const urlParams = new URLSearchParams(window.location.search.substring(0)); // selected symbol app.js 148-176
   const idAndSymbolString = urlParams.get("id");
   const arrOfSymbolAndId = idAndSymbolString.split("/");
   $.ajax({
     type: "GET",
-    url: `/api/external/stocks/${arrOfSymbolAndId[1]}`
-  }).then(allData => {
+    url: `/api/external/stocks/${arrOfSymbolAndId[1]}`,
+  }).then((allData) => {
     console.log(allData);
     const name = allData.companyName;
     let company_name = name.split(" ");
@@ -19,8 +17,8 @@ $(document).ready(function () {
     $.ajax({
       type: "GET",
       url: `/api/news/${company_name[0].toLowerCase()}`,
-      dataType: "json"
-    }).then(responseNews => {
+      dataType: "json",
+    }).then((responseNews) => {
       if (responseNews.articles.articles.length !== 0) {
         const urlOne = responseNews.articles.articles[0].url;
         const urlTwo = responseNews.articles.articles[1].url;
@@ -29,11 +27,9 @@ $(document).ready(function () {
         $("#headlineOne").text(responseNews.articles.articles[0].title);
         $("#headlineTwo").text(responseNews.articles.articles[1].title);
         $("#compName").text(company_name[0]);
-
-      }
-      else {
-        const urlOne = "https://www.metastock.com/"
-        const urlTwo = "https://www.bloomberg.com/"
+      } else {
+        const urlOne = "https://www.metastock.com/";
+        const urlTwo = "https://www.bloomberg.com/";
         $("#headlineOne").attr("href", `${urlOne}`);
         $("#headlineTwo").attr("href", `${urlTwo}`);
         $("#headlineOne").text("Metastock");
@@ -41,15 +37,15 @@ $(document).ready(function () {
         $("#compName").text(company_name[0]);
       }
     });
+    $.ajax({
+      type: "GET",
+      url: `/api/${arrOfSymbolAndId[1]}`,
+      datatype: "json",
+    }).then((responseFromAPI) => {
+      // console.log(responseFromAPI.companyLogo);
+      printTheChart(responseFromAPI.companyLogo);
+    });
   });
-  const tokenIEX = "pk_723f0373466e46fa8549c7f632ef69f1";
-  const intradayUrl = `https://cloud.iexapis.com/stable/stock/${arrOfSymbolAndId[1]}/intraday-prices?token=${tokenIEX}`;
-  axios
-    .get(intradayUrl)
-    .then((responseFromAPI) => {
-      printTheChart(responseFromAPI.data);
-    })
-    .catch((err) => console.log("Error while getting the data: ", err));
 
   function printTheChart(stockData) {
     let labelArray = [];
@@ -72,8 +68,8 @@ $(document).ready(function () {
         datasets: [
           {
             label: "Real-Time stock Price",
-            backgroundColor: "#757575",
-            borderColor: "#757575",
+            backgroundColor: "#76ff03",
+            borderColor: "#76ff03",
             data: priceArray,
           },
         ],
@@ -81,9 +77,3 @@ $(document).ready(function () {
     });
   }
 });
-
-
-
-
-
-
