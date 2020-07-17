@@ -5,7 +5,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     <link
@@ -91,7 +91,7 @@
         >
         <ul class="hide-on-med-and-down right">
           <li><a href="/dashboard">DASHBOARD</a></li>
-          <li><a href="">LOGOUT</a></li>
+          <li><a href="/logout">LOGOUT</a></li>
         </ul>
       </div>
     </nav>
@@ -106,8 +106,10 @@
       <div class="col m6">
         <div class="card z-depth-5">
           <div class="card-image waves-effect waves-block waves-light">
-            <h4 style="padding-left: 15px;" id="compName">{Company Name}</h4>
-            <h6 style="padding-left: 15px;" id="currentDate">{Today's Date}</h6>
+            <h4 style="padding-left: 15px;" id="compName"></h4>
+            <h6 style="padding-left: 15px;">
+              <p id="currentDate"></p>
+            </h6>
             <!-- Insert chartjs here!! -->
             <canvas class="z-depth-3" id="myChart"></canvas>
           </div>
@@ -128,7 +130,7 @@
                     />
                   </td>
                   <td>
-                    <p><a href="#" id="headline">Headline #1</a></p>
+                    <p><a href="#" id="headlineOne">Headline #1</a></p>
                   </td>
                   <td id="newsSource" style="font-size: smaller;">Source</td>
                   <td id="newsDate" style="font-size: smaller;">Date</td>
@@ -143,7 +145,7 @@
                     />
                   </td>
                   <td>
-                    <p><a href="#" id="headline">Headline #2</a></p>
+                    <p><a href="#" id="headlineTwo">Headline #2</a></p>
                   </td>
                   <td id="newsSource" style="font-size: smaller;">Source</td>
                   <td id="newsDate" style="font-size: smaller;">Date</td>
