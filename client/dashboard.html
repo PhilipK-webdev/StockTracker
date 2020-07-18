@@ -7,47 +7,17 @@
   <link rel="stylesheet" href="./assets/style/style.css" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
-  <!-- <link rel="stylesheet" href="./assets/style/index.css"> -->
 </head>
+<header class="conatiner-outer">
+  <div class="container-width">
+    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js"
+      async>
+      </script>
+  </div>
+  <!-- </div> -->
+</header>
 
 <body>
-  <header class="conatiner-outer">
-    <!-- <div class="container-inner"> -->
-    <div class="container-width">
-      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js"
-        async>
-          {
-            "symbols": [
-              {
-                "proName": "FOREXCOM:SPXUSD",
-                "title": "S&P 500"
-              },
-              {
-                "proName": "FOREXCOM:NSXUSD",
-                "title": "Nasdaq 100"
-              },
-              {
-                "proName": "FX_IDC:EURUSD",
-                "title": "EUR/USD"
-              },
-              {
-                "proName": "BITSTAMP:BTCUSD",
-                "title": "BTC/USD"
-              },
-              {
-                "proName": "BITSTAMP:ETHUSD",
-                "title": "ETH/USD"
-              }
-            ],
-              "colorTheme": "dark",
-                "isTransparent": false,
-                  "displayMode": "adaptive",
-                    "locale": "en"
-          }
-        </script>
-    </div>
-    <!-- </div> -->
-  </header>
   <!-- Ticker-tape widget header - ENDS -->
  
   <nav>
@@ -73,7 +43,7 @@
       <li>
         <img src="https://techcrunch.com/wp-content/uploads/2020/07/GettyImages-1227124569.jpg?w=600">
         <!-- random image -->
-        <div class="caption left-align">
+        <div class="center-align caption left-align">
           <h3>Welcome to StockTracker !</h3>
           <h5 class="light grey-text text-lighten-3">StocksTracker is the best solution to find stocks information</h5>
         </div>
@@ -86,14 +56,14 @@
     <div class="row">
       <form class="col s12">
         <div class="row">
-          <div class="input-field col s12">
-            <input id="autocomplete" type="text" data-length="10">
+          <div class="input-field col s10">
+            <input autofocus id="autocomplete" type="text" data-length="10">
             <label for="autocomplete">Looking for a specific stock?</label>
             <div>
               Selected Option : <span class="label label-default" id="selected_option"></span>
             </div>
           </div>
-          <div class="col s2"><a id="addBtn" class="waves-effect waves-light btn">Add</a></div>
+          <div class="col s2"><a id="addBtn" class="valign-wrapper waves-effect waves-light btn">Add</a></div>
         </div>
         <table class="highlight">
           <thead>
@@ -105,11 +75,7 @@
               <th></th>
             </tr>
           </thead>
-
           <tbody>
-            <tr id="AAPL">
-
-            </tr>
           </tbody>
         </table>
     </div>
@@ -128,4 +94,8 @@
     });
   </script>
 </body>
+<<<<<<< HEAD
+=======
+
+>>>>>>> a21d5b02cb805a0a2b319d9db6c35478266f610e
 </html>
