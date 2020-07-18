@@ -20,7 +20,6 @@ $(document).ready(function () {
         window.location.href = "/dashboard";
       })
       .catch((err) => console.log(err));
-    $(".alert-success").show(); // << Successful registration alert
   });
   $("#btn_return").on("click", function (event) {
     event.preventDefault();
@@ -37,6 +36,7 @@ const register = (UserRegister) => {
     })
       .then((res) => {
         resovle(res);
+        // $(".alert-success").show(); // << Successful registration alert
       })
       .catch((err) => reject(err));
   });
