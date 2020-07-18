@@ -86,7 +86,7 @@ $(document).ready(function () {
     objStock().then(async (popularStock) => {
       for (i = 0; i < 5; i++) {
         let symbol = popularStock[i].symbol
-        let stockValue = popularStock[i].iexRealtimePrice
+        let stockValue = popularStock[i].iexClose
         let companyParts = popularStock[i].companyName.split(" ")[0]
         let company = companyParts.replace(",", "")
 
