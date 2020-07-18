@@ -36,12 +36,15 @@
   height: 100px;
 } */
 
+#myChart {
+  padding-left:0 !important;
+  }
 
-		.autocomplete-suggestions {
-			border: 1px solid #999;
-			background: #FFF;
-			overflow: auto;
-		}
+.autocomplete-suggestions {
+  border: 1px solid #999;
+  background: #FFF;
+	overflow: auto;
+	}
 
 		.autocomplete-suggestion {
 			padding: 2px 5px;
@@ -105,3 +108,4 @@
       background: rgba(54, 25, 25, .4)
       
         }
+

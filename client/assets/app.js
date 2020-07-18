@@ -1,3 +1,5 @@
+
+
 $(document).ready(function () {
   // INIT FUNCTIONS
 
@@ -20,12 +22,29 @@ $(document).ready(function () {
     $("#welcomeText").hide();
     addStockUser(symbol).then((msg) => {
       if (msg === false) {
+<<<<<<< HEAD
+        M.toast({ html: `${symbol} already in watchlist!` })
+=======
         M.toast({ html: `${symbol} already in watchlist!` });
         console.log("wtf");
+>>>>>>> TracyVy-master
       } else {
         renderWatchList(symbol);
         M.toast({ html: `${symbol} successfully added!` });
       }
+<<<<<<< HEAD
+    })
+  })
+
+  // Button to add to watchlist table, launch requests to retreive close value, and add to user stocks
+  $("#addBtn").on("click", () => {
+    const symbol = $("#selected_option").html()
+    $(".highlight").show()
+    $("#welcomeText").hide()
+    addStockUser(symbol).then((msg) => {
+      if (msg === false) {
+        M.toast({ html: `${symbol} already in watchlist!` })
+=======
       console.log("Success message", msg);
     });
   });
@@ -39,58 +58,36 @@ $(document).ready(function () {
     addStockUser(symbol).then((msg) => {
       if (msg === false) {
         M.toast({ html: `${symbol} already in watchlist!` });
+>>>>>>> TracyVy-master
       } else {
         renderWatchList(symbol);
         M.toast({ html: `${symbol} successfully added!` });
       }
-      console.log("Success message", msg);
-    });
-    $("#autocomplete").val("");
-    $("#selected_option").text("");
-  });
+    })
+    $("#autocomplete").val("")
+    $("#selected_option").text("")
+
+  })
 
   // Button to remove line on watchlist and remove from user watchlist(in database)
-  $(document).on("click", ".removeBtn", function () {
-    const symbol = $(this).attr("symbol");
-    $(`#line-${symbol}`).remove();
-    deleteStockUser(symbol);
-    M.toast({ html: `${symbol} removed from watchlist` });
-  });
+  $(document).on("click", ".removeBtn", function (e) {
+    e.preventDefault()
+    const symbol = $(this).attr("symbol")
+    $(`#line-${symbol}`).remove()
+    M.toast({ html: `${symbol} removed from watchlist` })
+    deleteStockUser(symbol)
 
-  // Button to go to stockdetails page
-  $(document).on("click", ".newsBtn", function () {
-    const symbolUser = $(this).attr("symbol");
-    $.ajax({
-      type: "GET",
-      url: "/api/user_data",
-      dataType: "json",
-    }).then((resonseUser) => {
-      const id = resonseUser.id;
-      $.ajax({
-        type: "GET",
-        url: `/find/${id}`,
-        dataType: "json",
-      }).then((res) => {
-        const symbolReturn = res.map((symbol) => {
-          if (symbol.symbol === symbolUser) {
-            return symbol.symbol;
-          }
-        });
-        const filtered = symbolReturn.filter(function (x) {
-          return x !== undefined;
-        });
-        window.location.href = `/stockDetails?id=${id}/${filtered[0]}`;
-      });
-    });
-  });
+  })
+
+  // Button to go to stockdetails page  
 
   // FUNCTIONS
 
   // Function for initialization (slider and watchlist, handling 1st connection or not)
   const init = async () => {
-    if (window.location.href.endsWith("/dashboard")) {
-      await slidesStart();
-      await loadWatchlist();
+    if (window.location.href.endsWith("dashboard") || window.location.href.endsWith("dashboard#")) {
+      await slidesStart()
+      await loadWatchlist()
     }
 
     userStocks().then((res) => {
@@ -108,10 +105,10 @@ $(document).ready(function () {
   const slidesStart = () => {
     objStock().then(async (popularStock) => {
       for (i = 0; i < 5; i++) {
-        let symbol = popularStock[i].symbol;
-        let stockValue = popularStock[i].iexRealtimePrice;
-        let companyParts = popularStock[i].companyName.split(" ")[0];
-        let company = companyParts.replace(",", "");
+        let symbol = popularStock[i].symbol
+        let stockValue = popularStock[i].iexClose
+        let companyParts = popularStock[i].companyName.split(" ")[0]
+        let company = companyParts.replace(",", "")
 
         let companyNews = await getNews(company); // { urlToImage: '', headerTitle: '' }
         const finalImage = companyNews.urlToImage;
@@ -129,6 +126,7 @@ $(document).ready(function () {
 
   // Function to create all items for slider
   const createItemSlider = (imgLink, company, stockValue, title, symbol) => {
+    console.log(stockValue);
     $(".slides").prepend(`
       <li>
       <img src="${imgLink}">
@@ -191,7 +189,6 @@ $(document).ready(function () {
     });
   }
   $(document).on("click", ".newsBtn", function () {
-    console.log($(this).attr("symbol"));
     const symbolUser = $(this).attr("symbol");
     $.ajax({
       type: "GET",
@@ -202,19 +199,16 @@ $(document).ready(function () {
       $.ajax({
         type: "GET",
         url: `/find/${id}`,
-        dataType: "json",
-      }).then((res) => {
-        console.log(res);
+        dataType: "json"
+      }).then(res => {
         const symbolReturn = res.map((symbol) => {
           if (symbol.symbol === symbolUser) {
             return symbol.symbol;
           }
         });
-        console.log(symbolReturn);
         const filtered = symbolReturn.filter(function (x) {
           return x !== undefined;
         });
-        console.log(filtered);
         window.location.href = `/stockDetails?id=${id}/${filtered[0]}`;
       });
     });

@@ -113,13 +113,6 @@ const staticStocks = () => {
       .catch((err) => reject(err));
   });
 };
-// const intradayUrl = `https://cloud.iexapis.com/stable/stock/${arrOfSymbolAndId[1]}/intraday-prices?token=${tokenIEX}`;
-//   axios
-//     .get(intradayUrl)
-//     .then((responseFromAPI) => {
-//       printTheChart(responseFromAPI.data);
-//     })
-//     .catch((err) => console.log("Error while getting the data: ", err));
 
 const overallStock = (symbol) => {
   return new Promise((resolve, reject) => {
