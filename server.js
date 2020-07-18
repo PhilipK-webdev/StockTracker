@@ -6,16 +6,13 @@ const session = require("express-session");
 const passport = require("passport");
 const db = require("./models");
 require("dotenv").config();
-//
+// 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("./client"));
+
 app.use(
-  session({
-    secret: process.env.SECRET,
-    resave: true,
-    saveUninitialized: true,
-  })
+  session({ secret: process.env.SECRET, resave: true, saveUninitialized: true })
 );
 
 // Authentication:
@@ -30,9 +27,6 @@ app.use(clientRoutes);
 const apiRoutes = require("./controller/api-routes");
 app.use(apiRoutes);
 
-app.get("/*", (req, res) => {
-  res.status(404).json({ msg: "404 error NOT FOUND" });
-});
 
 // Connection with the database:
 db.sequelize.sync().then(() => {

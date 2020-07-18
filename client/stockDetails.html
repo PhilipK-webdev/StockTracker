@@ -24,7 +24,7 @@
 
     #myChart {
       max-width: 500px;
-      padding-left: 100px;
+      padding-left: 0 !important;
     }
   </style>
   <title>StocksTracker</title>
@@ -79,12 +79,10 @@
       </ul>
     </div>
   </nav>
-
   <ul class="sidenav" id="mobile_menu">
     <li><a href="/dashboard">DASHBOARD</a></li>
     <li><a href="/logout">LOGOUT</a></li>
   </ul>
-
   <div class="row" style="padding-top: 30px;">
     <div class="col m3"></div>
     <div class="col m6">
@@ -95,10 +93,9 @@
             <p id="currentDate"></p>
           </h6>
           <!-- Insert chartjs here!! -->
-
-        </div>
-        <div class="center-align">
-          <canvas class="z-depth-3" id="myChart"></canvas>
+          <div class="center-align">
+            <canvas class="z-depth-3" id="myChart"></canvas>
+          </div>
         </div>
         <div class="card-content">
           <span class="card-title activator grey-text text-darken-4">News</span>
@@ -142,5 +139,3 @@
 </body>
 
 </html>
-
-<!--  Origin API_KEY  01b150ff9ac14903973ea0c91ac8d28a -->

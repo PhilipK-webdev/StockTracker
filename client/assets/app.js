@@ -1,3 +1,5 @@
+
+
 $(document).ready(function () {
 
   // INIT FUNCTIONS
@@ -24,14 +26,12 @@ $(document).ready(function () {
         renderWatchList(symbol)
         M.toast({ html: `${symbol} successfully added!` })
       }
-      console.log("Success message", msg);
     })
   })
 
   // Button to add to watchlist table, launch requests to retreive close value, and add to user stocks
   $("#addBtn").on("click", () => {
     const symbol = $("#selected_option").html()
-
     $(".highlight").show()
     $("#welcomeText").hide()
     addStockUser(symbol).then((msg) => {
@@ -41,7 +41,6 @@ $(document).ready(function () {
         renderWatchList(symbol)
         M.toast({ html: `${symbol} successfully added!` })
       }
-      console.log("Success message", msg);
     })
     $("#autocomplete").val("")
     $("#selected_option").text("")
@@ -56,38 +55,13 @@ $(document).ready(function () {
     M.toast({ html: `${symbol} removed from watchlist` })
   })
 
-  // Button to go to stockdetails page
-  $(document).on("click", ".newsBtn", function () {
-    const symbolUser = $(this).attr("symbol");
-    $.ajax({
-      type: "GET",
-      url: "/api/user_data",
-      dataType: "json"
-    }).then(resonseUser => {
-      const id = resonseUser.id;
-      $.ajax({
-        type: "GET",
-        url: `/find/${id}`,
-        dataType: "json"
-      }).then(res => {
-        const symbolReturn = res.map((symbol) => {
-          if (symbol.symbol === symbolUser) {
-            return symbol.symbol;
-          }
-        });
-        const filtered = symbolReturn.filter(function (x) {
-          return x !== undefined;
-        });
-        window.location.href = `/stockDetails.html?id=${id}/${filtered[0]}`;
-      });
-    });
-  });
+  // Button to go to stockdetails page  
 
   // FUNCTIONS
 
   // Function for initialization (slider and watchlist, handling 1st connection or not)
   const init = async () => {
-    if (window.location.href.endsWith("dashboard.html")) {
+    if (window.location.href.endsWith("dashboard")) {
       await slidesStart()
       await loadWatchlist()
     }
@@ -181,7 +155,6 @@ $(document).ready(function () {
     });
   }
   $(document).on("click", ".newsBtn", function () {
-    console.log($(this).attr("symbol"));
     const symbolUser = $(this).attr("symbol");
     $.ajax({
       type: "GET",
@@ -194,17 +167,14 @@ $(document).ready(function () {
         url: `/find/${id}`,
         dataType: "json"
       }).then(res => {
-        console.log(res);
         const symbolReturn = res.map((symbol) => {
           if (symbol.symbol === symbolUser) {
             return symbol.symbol;
           }
         });
-        console.log(symbolReturn);
         const filtered = symbolReturn.filter(function (x) {
           return x !== undefined;
         });
-        console.log(filtered);
         window.location.href = `/stockDetails?id=${id}/${filtered[0]}`;
       });
     });

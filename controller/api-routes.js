@@ -56,7 +56,7 @@ router.post("/api/users/:id/stocks/:symbol", (req, res) => {
         }
     }).then((stockMatch) => {
         if (stockMatch) {
-            return false
+            return false;
         } else {
             db.Stock.create({
                 UserId: req.params.id,
@@ -157,7 +157,7 @@ router.post("/api/register", (req, res) => {
         password: req.body.password,
     })
         .then(() => {
-            res.json({ id: req.user.id });
+            res.redirect(307, "/api/login");
         })
         .catch((err) => res.status(401).json(err));
 });
