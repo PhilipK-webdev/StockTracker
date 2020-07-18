@@ -1,16 +1,116 @@
 $(document).ready(function () {
-  // Object of stock with : company name, symbol,last value
 
-  function showItem(i) {
-    $('.slider > .indicators > .indicator-item')[i].click();
+  // INIT FUNCTIONS
+
+  $("#welcomeText").hide()
+  $(".highlight").show()
+
+  // Init to start displaying dashboard
+  setTimeout(function () { init(); }, 100);
+
+  // ON CLICKS
+
+  // Button to add one of the popular stocks
+
+  $(document).on("click", ".addPopular", function () {
+    const symbol = $(this).attr("symbol")
+
+    $(".highlight").show()
+    $("#welcomeText").hide()
+    addStockUser(symbol).then((msg) => {
+      if (msg === "duplicate") {
+        M.toast({ html: `${symbol} already in watchlist!` })
+        console.log("wtf");
+      } else {
+        renderWatchList(symbol)
+        M.toast({ html: `${symbol} successfully added!` })
+      }
+      console.log("Success message", msg);
+    })
+  })
+
+  // Button to add to watchlist table, launch requests to retreive close value, and add to user stocks
+  $("#addBtn").on("click", () => {
+    const symbol = $("#selected_option").html()
+
+    $(".highlight").show()
+    $("#welcomeText").hide()
+    addStockUser(symbol).then((msg) => {
+      if (msg === "duplicate") {
+        M.toast({ html: `${symbol} already in watchlist!` })
+        console.log("wtf");
+
+      } else {
+        renderWatchList(symbol)
+        M.toast({ html: `${symbol} successfully added!` })
+      }
+      console.log("Success message", msg);
+    })
+    $("#autocomplete").val("")
+    $("#selected_option").text("")
+
+  })
+
+  // Button to remove line on watchlist and remove from user watchlist(in database)
+  $(document).on("click", ".removeBtn", function () {
+    const symbol = $(this).attr("symbol")
+    $(`#line-${symbol}`).remove()
+    deleteStockUser(symbol)
+    M.toast({ html: `${symbol} removed from watchlist` })
+  })
+
+  // Button to go to stockdetails page
+  $(document).on("click", ".newsBtn", function () {
+    const symbolUser = $(this).attr("symbol");
+    $.ajax({
+      type: "GET",
+      url: "/api/user_data",
+      dataType: "json"
+    }).then(resonseUser => {
+      const id = resonseUser.id;
+      $.ajax({
+        type: "GET",
+        url: `/find/${id}`,
+        dataType: "json"
+      }).then(res => {
+        const symbolReturn = res.map((symbol) => {
+          if (symbol.symbol === symbolUser) {
+            return symbol.symbol;
+          }
+        });
+        const filtered = symbolReturn.filter(function (x) {
+          return x !== undefined;
+        });
+        window.location.href = `/stockDetails.html?id=${id}/${filtered[0]}`;
+      });
+    });
+  });
+
+  // FUNCTIONS
+
+  // Function for initialization (slider and watchlist, handling 1st connection or not)
+  const init = async () => {
+    if (window.location.href.endsWith("dashboard.html")) {
+      await slidesStart()
+      await loadWatchlist()
+    }
+
+    userStocks()
+      .then((res) => {
+        if (res.stocksArray == "") {
+          $("#welcomeText").show()
+          $(".highlight").hide()
+        } else {
+          $(".highlight").show()
+          $("#welcomeText").hide()
+        }
+      })
   }
 
   // Function for slider start
   const slidesStart = () => {
 
     objStock().then(async (popularStock) => {
-      console.log("my popular stocks", popularStock)
-      // // console.log();
       for (i = 0; i < 5; i++) {
         let symbol = popularStock[i].symbol
         let stockValue = popularStock[i].iexRealtimePrice
@@ -36,11 +136,13 @@ $(document).ready(function () {
     $(".slides").prepend(`
       <li>
       <img src="${imgLink}">
-        <div class="caption left-align">
-          <h3>${company}</h3>
-          <h4>Stock value : ${stockValue} $</h4>
-          <h5 class="light grey-text text-lighten-3">${title}</h5>
-          <div class="col s2"><a symbol="${symbol}" class="addPopular waves-effect waves-light btn">Add</a></div>
+        <div class="caption center-align container hoverable">
+        <div class="row">
+          <h3 class="sliderText">${company}</h3>
+          <h4 class="sliderText">Stock value : ${stockValue} $</h4>
+          <h5 class="sliderText light grey-text text-lighten-3">${title}</h5>
+          <a symbol="${symbol}" class="addPopular waves-effect waves-light btn">Add</a>
+        </div>
         </div>
       </li>`)
   }
@@ -52,111 +154,12 @@ $(document).ready(function () {
         type: "GET",
         url: `/api/news/${company}`,
       }).then((res) => {
-        const result = res.articles.articles[0] || { urlToImage: 'http://default.pix', headerTitle: 'No Title ahah' }
+        const result = res.articles.articles[0] || { urlToImage: 'http://default.pix', headerTitle: 'No Title' }
         resolve(result)
       })
         .catch(err => reject(err))
     })
   }
-
-  // OLD Caroussel system initialization
-  // $('.carousel').carousel();
-  // displayStocksCarousel();
-
-  // INIT FUNCTIONS
-
-
-  $("#welcomeText").hide()
-  $(".highlight").show()
-  setTimeout(function () { init(); }, 100);
-
-  const init = async () => {
-    if (window.location.href.endsWith("dashboard.html")) {
-      await slidesStart()
-      await loadWatchlist()
-    }
-
-    userStocks()
-      .then((res) => {
-        console.log(res.stocksArray);
-
-        if (res.stocksArray == "") {
-          $("#welcomeText").show()
-          $(".highlight").hide()
-        } else {
-          $(".highlight").show()
-          $("#welcomeText").hide()
-        }
-      })
-  }
-
-
-  // ON CLICKS
-
-  // Button to add one of the popular stocks
-
-  $(document).on("click", ".addPopular", function () {
-    const symbol = $(this).attr("symbol")
-
-    renderWatchList(symbol)
-    $(".highlight").show()
-    $("#welcomeText").hide()
-    addStockUser(symbol).then((msg) => {
-      console.log("Success message", msg);
-    })
-  })
-
-  // Button to add to watchlist table, launch requests to retreive close value, and add to user stocks
-  $("#addBtn").on("click", () => {
-    const symbol = $("#selected_option").html()
-
-    renderWatchList(symbol)
-    $(".highlight").show()
-    $("#welcomeText").hide()
-    addStockUser(symbol).then((msg) => {
-      console.log("Success message", msg);
-    })
-  })
-
-  // Button to remove line on watchlist and remove from user watchlist(in database)
-  $(document).on("click", ".removeBtn", function () {
-    const symbol = $(this).attr("symbol")
-    $(`#line-${symbol}`).remove()
-    deleteStockUser(symbol)
-  })
-
-  // Button to go to stockdetails page
-  $(document).on("click", ".newsBtn", function () {
-    console.log($(this).attr("symbol"));
-    const symbolUser = $(this).attr("symbol");
-    $.ajax({
-      type: "GET",
-      url: "/api/user_data",
-      dataType: "json"
-    }).then(resonseUser => {
-      const id = resonseUser.id;
-      $.ajax({
-        type: "GET",
-        url: `/find/${id}`,
-        dataType: "json"
-      }).then(res => {
-        console.log(res);
-        const symbolReturn = res.map((symbol) => {
-          if (symbol.symbol === symbolUser) {
-            return symbol.symbol;
-          }
-        });
-        console.log(symbolReturn);
-        const filtered = symbolReturn.filter(function (x) {
-          return x !== undefined;
-        });
-        console.log(filtered);
-        window.location.href = `/stockDetails.html?id=${id}/${filtered[0]}`;
-      });
-    });
-  });
-
-  // FUNCTIONS
 
   // Autocomplete function to get stocks name and symbols from JSON file hosted on URL
   var arrayReturn = [];
@@ -184,23 +187,27 @@ $(document).ready(function () {
 
   // Function to render information in the watchlist table
   const renderWatchList = (symbol) => {
-    console.log(symbol);
-
     getStockInfo(symbol)
 
       .then((stock) => {
-        console.log(stock);
+        let stockEvolution = (stock.evolution * 100).toFixed(2)
         $("tbody").append(`
       <tr id="line-${symbol}">
         <td>${stock.companyName}</td>
         <td>${symbol}</td>
         <td>${stock.value} USD</td>
-        <td class="percent">${(stock.evolution * 100).toFixed(2)} %</td>
-        <td class="newsBtn" symbol="${symbol}"><i title="More info" style="font-size: 30px; color:#26a69a" class="material-icons">new_releases</i></td>
-        <td class="removeBtn" symbol="${symbol}"><i title="Delete from my Watchlist" style="font-size: 30px; color:#26a69a" class="
-        material-icons">delete_forever</i></td>
+        <td class="percent-${symbol}">${stockEvolution} %</td>
+        <td class="icon newsBtn" symbol="${symbol}"><a href="#"><i title="More info" style="font-size: 30px; color:#26a69a" class="material-icons">new_releases</i></a></td>
+        <td class="icon removeBtn" symbol="${symbol}"><a href="#"><i title="Delete from my Watchlist" style="font-size: 30px; color:#26a69a" class="
+        material-icons">delete_forever</i></a></td>
       </tr>
 `)
+        // conditional to change style for % change value (red or green)
+        if (stockEvolution < 0) {
+          $(`.percent-${symbol}`).attr("style", "color: red; animation: blinker 2s linear infinite;")
+        } else {
+          $(`.percent-${symbol}`).attr("style", "color: green; animation: blinker 2s linear infinite;")
+        }
       })
   }
 
@@ -231,7 +238,6 @@ $(document).ready(function () {
       type: "GET",
       url: `/api/external/stocks/${symbol}`,
     }).then((stock) => {
-      console.log("api from GetStockInfo", stock);
       return stock
     })
   }
@@ -254,8 +260,6 @@ $(document).ready(function () {
       type: "GET",
       url: `/api/users/${user.id}/watchlist`,
     }).then((userStocks) => {
-      console.log(userStocks);
-      console.log(userStocks.stocksArray);
       let stocks = userStocks.stocksArray
       stocks.forEach((symbol) => {
         renderWatchList(symbol.symbol)
@@ -321,9 +325,6 @@ function displayStocksCarousel() {
     }
     // getting the array of single logo;
     getSymbol(objStock).then(resLogo => {
-      console.log(resLogo[0].companyLogo.url);
-      console.log(objStock[0].companyName);
-      console.log(objStock.length);
       for (let i = 0; i < resLogo.length; i++) {
         $(`#img${i}`).attr("src", `${resLogo[i].companyLogo.url}`);
       }

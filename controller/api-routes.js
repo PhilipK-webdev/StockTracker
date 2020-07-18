@@ -48,19 +48,32 @@ router.get("/api/external/stocks/:symbol", (req, res) => {
 // Route to add stock in user's watchlist
 // example POST : http://localhost:3000/api/users/1/stocks/MSFT
 router.post("/api/users/:id/stocks/:symbol", (req, res) => {
-    db.Stock.create({
-        UserId: req.params.id,
-        symbol: req.params.symbol,
-        company_name: "not needed", // FOR VIRTUAL PORTFOLIO FEATURE
-        inital_value: 0, // FOR VIRTUAL PORTFOLIO FEATURE - careful, typo error in the Stock.js file
-        last_value: 0, // FOR VIRTUAL PORTFOLIO FEATURE
-        shares: 0, // FOR VIRTUAL PORTFOLIO FEATURE
-        createdAt: new Date(),
-        updatedAt: new Date(),
 
+    db.Stock.findOne({
+        where: {
+            UserId: req.params.id,
+            symbol: req.params.symbol,
+        }
+    }).then((stockMatch) => {
+        if (stockMatch) {
+            return "duplicate"
+        } else {
+            db.Stock.create({
+                UserId: req.params.id,
+                symbol: req.params.symbol,
+                company_name: "not needed", // FOR VIRTUAL PORTFOLIO FEATURE
+                inital_value: 0, // FOR VIRTUAL PORTFOLIO FEATURE - careful, typo error in the Stock.js file
+                last_value: 0, // FOR VIRTUAL PORTFOLIO FEATURE
+                shares: 0, // FOR VIRTUAL PORTFOLIO FEATURE
+                createdAt: 0, // FOR VIRTUAL PORTFOLIO FEATURE
+                updatedAt: 0, // FOR VIRTUAL PORTFOLIO FEATURE
+            })
+                .then(() => res.send({ msg: "successfully added" }))
+                .catch((err) => res.send(err));
+        }
     })
-        .then(() => res.send({ msg: "successfully added" }))
-        .catch((err) => res.send(err));
+
+
 });
 
 // Route to get data for one specific stock on stockdetails page
@@ -69,8 +82,10 @@ router.get("/find/:id", (req, res) => {
         where: {
             UserId: req.params.id,
         }
-    }).then(todo => res.send(todo)).catch(err => res.send(err));
+    }).then(todo => res.send(todo)).catch(err => res.send(err)); // need to change todo to stock
 });
+
+// get all stocks, then when user add a new stock, i check if there's already a duplicate
 
 // Route to delete stock from watchlist
 // example DELETE : http://localhost:3000/api/users/1/stocks/MSFT
