@@ -11,7 +11,7 @@ $(document).ready(function () {
     objStock().then(async (popularStock) => {
       console.log("my popular stocks", popularStock)
       // // console.log();
-      for (i = 0; i < 5; i++) {
+      for (let i = 0; i < 5; i++) {
         let symbol = popularStock[i].symbol
         let stockValue = popularStock[i].iexRealtimePrice
         let companyParts = popularStock[i].companyName.split(" ")[0]
