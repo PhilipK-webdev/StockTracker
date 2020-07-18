@@ -56,33 +56,6 @@ $(document).ready(function () {
   })
 
   // Button to go to stockdetails page
-  $(document).on("click", ".newsBtn", function () {
-    const symbolUser = $(this).attr("symbol");
-    $.ajax({
-      type: "GET",
-      url: "/api/user_data",
-      dataType: "json"
-    }).then(resonseUser => {
-      const id = resonseUser.id;
-      $.ajax({
-        type: "GET",
-        url: `/find/${id}`,
-        dataType: "json"
-      }).then(res => {
-        const symbolReturn = res.map((symbol) => {
-          if (symbol.symbol === symbolUser) {
-            return symbol.symbol;
-          }
-        });
-        const filtered = symbolReturn.filter(function (x) {
-          return x !== undefined;
-        });
-        console.log("User Id:" + id);
-        console.log("Symbol User" + filtered);
-        // window.location.href = `/stockDetails.html?id=${id}/${filtered[0]}`;
-      });
-    });
-  });
 
   // FUNCTIONS
 
