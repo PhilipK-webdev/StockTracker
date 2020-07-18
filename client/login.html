@@ -1,80 +1,72 @@
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
-    />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
 
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
-    <style>
-      body {
-        background-image: url("./assets/img/wallSt.jpg");
-        background-size: cover;
-        /* background-color: #212121;  */
-      }
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
-      body img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <style>
+    body {
+      background-image: url("./assets/img/wallSt.jpg");
+      background-size: cover;
+      /* background-color: #212121;  */
+    }
 
-      .login {
-        margin-top: 100px;
-        color: white;
-      }
+    body img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
 
-      .login .card {
-        opacity: 0.75;
-      }
+    .login {
+      margin-top: 100px;
+      color: white;
+    }
 
-      .login h4 {
-        color: #76ff03;
-      }
+    .login .card {
+      opacity: 0.75;
+    }
 
-      .login label {
-        font-size: 16px;
-        color: rgb(100, 100, 100);
-      }
+    .login h4 {
+      color: #76ff03;
+    }
 
-      .login input {
-        font-size: 22px !important;
-        color: rgb(100, 100, 100);
-      }
+    .login label {
+      font-size: 16px;
+      color: rgb(100, 100, 100);
+    }
 
-      .login #btn_login:hover {
-        color: #76ff03;
-        padding: 0px 40px;
-      }
+    .login input {
+      font-size: 22px !important;
+      color: rgb(100, 100, 100);
+    }
 
-      .login #btn_return:hover {
-        color: #424242;
-        padding: 0px 40px;
-      }
-    </style>
+    .login #btn_login:hover {
+      color: #76ff03;
+      padding: 0px 40px;
+    }
 
-    <title>StocksTracker</title>
-  </head>
+    .login #btn_return:hover {
+      color: #424242;
+      padding: 0px 40px;
+    }
+  </style>
 
-  <body>
-    <!-- Ticker-tape widget header - BEGINS -->
-    <header class="conatiner-outer">
-      <div class="container-width">
-        <script
-          type="text/javascript"
-          src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js"
-          async
-        >
+  <title>StocksTracker</title>
+</head>
+
+<body>
+  <!-- Ticker-tape widget header - BEGINS -->
+  <header class="conatiner-outer">
+    <div class="container-width">
+      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js"
+        async>
           {
             "symbols": [
               {
@@ -104,77 +96,65 @@
                     "locale": "en"
           }
         </script>
-      </div>
-    </header>
-    <!-- Ticker-tape widget header - ENDS -->
+    </div>
+  </header>
+  <!-- Ticker-tape widget header - ENDS -->
 
-    <nav>
-      <div class="nav-wrapper grey darken-4" style="padding-left: 30px;">
-        <a href="/index" class="brand-logo light-green-text text-accent-3"
-          >$tockTracker</a
-        >
-        <a href="#" class="sidenav-trigger" data-target="mobile_menu"
-          ><i class="material-icons">menu</i></a
-        >
-        <ul class="hide-on-med-and-down right">
-          <li><a href="/register">REGISTER</a></li>
-        </ul>
-      </div>
-    </nav>
+  <nav>
+    <div class="nav-wrapper grey darken-4" style="padding-left: 30px;">
+      <a href="/login" class="brand-logo light-green-text text-accent-3">$tockTracker</a>
+      <ul class="hide-on-med-and-down right">
+        <li><a href="/register">REGISTER</a></li>
+      </ul>
+    </div>
+  </nav>
 
-    <ul class="sidenav" id="mobile_menu">
-      <li><a href="/index">HOME</a></li>
-      <li><a href="/register">REGISTER</a></li>
-    </ul>
+  <ul class="sidenav" id="mobile_menu">
+    <li><a href="/index">HOME</a></li>
+    <li><a href="/register">REGISTER</a></li>
+  </ul>
 
-    <!-- Login form -->
-    <div class="row login">
-      <div class="col s12 l4 offset-l4">
-        <div class="card">
-          <div class="card-action">
-            <h4>Login</h4>
+  <!-- Login form -->
+  <div class="row login">
+    <div class="col s12 l4 offset-l4">
+      <div class="card">
+        <div class="card-action">
+          <h4>Login</h4>
+        </div>
+        <div class="card-content">
+          <div class="form-field">
+            <label for="username">Username</label>
+            <input type="text" id="username" />
           </div>
-          <div class="card-content">
-            <div class="form-field">
-              <label for="username">Username</label>
-              <input type="text" id="username" />
-            </div>
-            <br />
-            <div class="form-field">
-              <label for="password">Password</label>
-              <input type="password" id="password" />
-            </div>
-            <br />
-            <div class="form-field">
-              <button
-                class="btn-large light green waves-effect waves-dark"
-                style="width: 100%;"
-                id="btn_login"
-              >
-                Login
-              </button>
-            </div>
-            <br />
-            <div class="form-field">
-              <button
-                class="btn-large grey darken-3"
-                style="width: 100%;"
-                id="btn_return"
-              >
-                Return to Homepage
-              </button>
-            </div>
-            <br />
+          <br />
+          <div class="form-field">
+            <label for="password">Password</label>
+            <input type="password" id="password" />
           </div>
+          <br />
+          <div class="form-field">
+            <button class="btn-large light green waves-effect waves-dark" style="width: 100%;" id="btn_login">
+              Login
+            </button>
+          </div>
+          <br />
+          <div class="form-field">
+            <button class="btn-large grey darken-3" style="width: 100%;" id="btn_return">
+              Return to Homepage
+            </button>
+          </div>
+          <br />
         </div>
       </div>
     </div>
+  </div>
 
-    <script>
-      $(document).ready(function () {
-        $(".sidenav").sidenav();
-      });
-    </script>
-    <script src="./assets/login.js"></script>
-  </body>
+  <script>
+    $(document).ready(function () {
+      $(".sidenav").sidenav();
+    });
+  </script>
+  <script src="./assets/login.js"></script>
+</body>
+
 </html>
