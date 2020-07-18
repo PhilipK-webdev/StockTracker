@@ -36,6 +36,7 @@
   height: 100px;
 } */
 
+
 		.autocomplete-suggestions {
 			border: 1px solid #999;
 			background: #FFF;
@@ -70,6 +71,9 @@
       animation: blinker 2s linear infinite;
     }
 
+    /* .sliderText {
+      opacity: 1 !important;
+    } */
 
     @keyframes blinker {
       50% {
@@ -96,3 +100,8 @@
       z-index: 100;
       /* text-align: left; */
     }
+
+    .caption {
+      background: rgba(54, 25, 25, .4)
+      
+        }
