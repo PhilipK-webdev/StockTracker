@@ -48,7 +48,8 @@ $(document).ready(function () {
   })
 
   // Button to remove line on watchlist and remove from user watchlist(in database)
-  $(document).on("click", ".removeBtn", function () {
+  $(document).on("click", ".removeBtn", function (e) {
+    e.preventDefault()
     const symbol = $(this).attr("symbol")
     $(`#line-${symbol}`).remove()
     deleteStockUser(symbol)
@@ -61,7 +62,7 @@ $(document).ready(function () {
 
   // Function for initialization (slider and watchlist, handling 1st connection or not)
   const init = async () => {
-    if (window.location.href.endsWith("dashboard")) {
+    if (window.location.href.endsWith("dashboard") || window.location.href.endsWith("dashboard#")) {
       await slidesStart()
       await loadWatchlist()
     }
@@ -84,7 +85,7 @@ $(document).ready(function () {
     objStock().then(async (popularStock) => {
       for (i = 0; i < 5; i++) {
         let symbol = popularStock[i].symbol
-        let stockValue = popularStock[i].iexRealtimePrice
+        const stockValue = popularStock[i].iexClose
         let companyParts = popularStock[i].companyName.split(" ")[0]
         let company = companyParts.replace(",", "")
 
@@ -104,6 +105,7 @@ $(document).ready(function () {
 
   // Function to create all items for slider
   const createItemSlider = (imgLink, company, stockValue, title, symbol) => {
+    console.log(stockValue);
     $(".slides").prepend(`
       <li>
       <img src="${imgLink}">
