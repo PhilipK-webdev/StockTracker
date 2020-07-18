@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "Sportfaza89!",
+    "password": "password",
     "database": "stock_market_db",
     "host": "127.0.0.1",
     "dialect": "mysql"

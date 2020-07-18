@@ -18,9 +18,8 @@ $(document).ready(function () {
     $(".highlight").show()
     $("#welcomeText").hide()
     addStockUser(symbol).then((msg) => {
-      if (msg === "duplicate") {
+      if (msg === false) {
         M.toast({ html: `${symbol} already in watchlist!` })
-        console.log("wtf");
       } else {
         renderWatchList(symbol)
         M.toast({ html: `${symbol} successfully added!` })
@@ -36,10 +35,8 @@ $(document).ready(function () {
     $(".highlight").show()
     $("#welcomeText").hide()
     addStockUser(symbol).then((msg) => {
-      if (msg === "duplicate") {
+      if (msg === false) {
         M.toast({ html: `${symbol} already in watchlist!` })
-        console.log("wtf");
-
       } else {
         renderWatchList(symbol)
         M.toast({ html: `${symbol} successfully added!` })

@@ -56,7 +56,7 @@ router.post("/api/users/:id/stocks/:symbol", (req, res) => {
         }
     }).then((stockMatch) => {
         if (stockMatch) {
-            return "duplicate"
+            return false
         } else {
             db.Stock.create({
                 UserId: req.params.id,

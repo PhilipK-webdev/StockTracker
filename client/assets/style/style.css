@@ -105,3 +105,7 @@
       background: rgba(54, 25, 25, .4)
       
         }
+
+#myChart {
+padding-left:0 !important;
+}
