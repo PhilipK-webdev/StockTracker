@@ -48,11 +48,13 @@ $(document).ready(function () {
   })
 
   // Button to remove line on watchlist and remove from user watchlist(in database)
-  $(document).on("click", ".removeBtn", function () {
+  $(document).on("click", ".removeBtn", function (e) {
+    e.preventDefault()
     const symbol = $(this).attr("symbol")
     $(`#line-${symbol}`).remove()
-    deleteStockUser(symbol)
     M.toast({ html: `${symbol} removed from watchlist` })
+    deleteStockUser(symbol)
+
   })
 
   // Button to go to stockdetails page  
@@ -61,7 +63,7 @@ $(document).ready(function () {
 
   // Function for initialization (slider and watchlist, handling 1st connection or not)
   const init = async () => {
-    if (window.location.href.endsWith("dashboard")) {
+    if (window.location.href.endsWith("dashboard") || window.location.href.endsWith("dashboard#")) {
       await slidesStart()
       await loadWatchlist()
     }
@@ -84,7 +86,7 @@ $(document).ready(function () {
     objStock().then(async (popularStock) => {
       for (i = 0; i < 5; i++) {
         let symbol = popularStock[i].symbol
-        let stockValue = popularStock[i].iexRealtimePrice
+        let stockValue = popularStock[i].iexClose
         let companyParts = popularStock[i].companyName.split(" ")[0]
         let company = companyParts.replace(",", "")
 
