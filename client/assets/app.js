@@ -55,7 +55,7 @@ $(document).ready(function () {
     M.toast({ html: `${symbol} removed from watchlist` })
   })
 
-  // Button to go to stockdetails page
+  // Button to go to stockdetails page  
 
   // FUNCTIONS
 
