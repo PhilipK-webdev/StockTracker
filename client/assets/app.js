@@ -18,7 +18,7 @@ $(document).ready(function () {
     $(".highlight").show()
     $("#welcomeText").hide()
     addStockUser(symbol).then((msg) => {
-      if (msg === "duplicate") {
+      if (msg === false) {
         M.toast({ html: `${symbol} already in watchlist!` })
         console.log("wtf");
       } else {
@@ -36,9 +36,9 @@ $(document).ready(function () {
     $(".highlight").show()
     $("#welcomeText").hide()
     addStockUser(symbol).then((msg) => {
-      if (msg === "duplicate") {
+      if (msg === false) {
         M.toast({ html: `${symbol} already in watchlist!` })
-        console.log("wtf");
+
 
       } else {
         renderWatchList(symbol)
@@ -81,7 +81,7 @@ $(document).ready(function () {
         const filtered = symbolReturn.filter(function (x) {
           return x !== undefined;
         });
-        window.location.href = `/stockDetails.html?id=${id}/${filtered[0]}`;
+        window.location.href = `/stockDetails?id=${id}/${filtered[0]}`;
       });
     });
   });
@@ -90,7 +90,7 @@ $(document).ready(function () {
 
   // Function for initialization (slider and watchlist, handling 1st connection or not)
   const init = async () => {
-    if (window.location.href.endsWith("dashboard.html")) {
+    if (window.location.href.endsWith("/dashboard")) {
       await slidesStart()
       await loadWatchlist()
     }
