@@ -147,9 +147,9 @@ router.get("/api/user_data", (req, res) => {
   !req.user
     ? res.json({})
     : res.json({
-        email: req.user.email,
-        id: req.user.id,
-      });
+      email: req.user.email,
+      id: req.user.id,
+    });
 });
 
 router.get("/api/:symbol", (req, res) => {

@@ -17,6 +17,13 @@ router.get("/register", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/register.html"));
 });
 
+router.get("/register", (req, res) => {
+    if (req.user) {
+        res.redirect("/dashboard");
+    }
+    res.sendFile(path.join(__dirname, "../client/register.html"));
+});
+
 router.get("/login", (req, res) => {
   if (req.user) {
     res.redirect("/dashboard");
