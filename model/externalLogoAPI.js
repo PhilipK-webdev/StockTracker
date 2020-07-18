@@ -1,7 +1,5 @@
 const axios = require("axios");
-const tokenIEX = "pk_723f0373466e46fa8549c7f632ef69f1" //IEX
-
-
+const tokenIEX = process.env.APIKEY; //IEX
 // Function to get URL to a company logo
 const getCompanyLogo = (symbolName) => {
     return new Promise((resolve, reject) => {

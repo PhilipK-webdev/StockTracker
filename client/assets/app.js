@@ -175,7 +175,6 @@ $(document).ready(function () {
       loadSuggestions(arrayReturn);
     }
   });
-
   function loadSuggestions(options) {
     $('#autocomplete').autocomplete({
       lookup: options,
@@ -184,11 +183,39 @@ $(document).ready(function () {
       }
     });
   }
+  $(document).on("click", ".newsBtn", function () {
+    console.log($(this).attr("symbol"));
+    const symbolUser = $(this).attr("symbol");
+    $.ajax({
+      type: "GET",
+      url: "/api/user_data",
+      dataType: "json"
+    }).then(resonseUser => {
+      const id = resonseUser.id;
+      $.ajax({
+        type: "GET",
+        url: `/find/${id}`,
+        dataType: "json"
+      }).then(res => {
+        console.log(res);
+        const symbolReturn = res.map((symbol) => {
+          if (symbol.symbol === symbolUser) {
+            return symbol.symbol;
+          }
+        });
+        console.log(symbolReturn);
+        const filtered = symbolReturn.filter(function (x) {
+          return x !== undefined;
+        });
+        console.log(filtered);
+        window.location.href = `/stockDetails?id=${id}/${filtered[0]}`;
+      });
+    });
+  });
 
-  // Function to render information in the watchlist table
+
   const renderWatchList = (symbol) => {
     getStockInfo(symbol)
-
       .then((stock) => {
         let stockEvolution = (stock.evolution * 100).toFixed(2)
         $("tbody").append(`
@@ -213,7 +240,6 @@ $(document).ready(function () {
 
   // Function to add a stock to the user watchlist (in database)
   const addStockUser = async (symbol) => {
-
     const user = await getUserInfo()
     return $.ajax({
       type: "POST",
@@ -255,7 +281,6 @@ $(document).ready(function () {
   // Function to load the watchlist from the user (database)
   const loadWatchlist = async () => {
     const user = await getUserInfo()
-
     $.ajax({
       type: "GET",
       url: `/api/users/${user.id}/watchlist`,
@@ -271,7 +296,6 @@ $(document).ready(function () {
   // Function to know if the user as stocks in watchlist
   const userStocks = async () => {
     const user = await getUserInfo()
-
     return $.ajax({
       type: "GET",
       url: `/api/users/${user.id}/watchlist`,
