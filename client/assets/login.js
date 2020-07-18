@@ -14,12 +14,12 @@ $(document).ready(function () {
             data: UserLogin
         }).then(res => {
             console.log(res);
-            window.location.href = `/dashboard`;
+            window.location.href = "/dashboard";
         }).catch(err => console.log(err));
     });
     $("#btn_return").on("click", function (event) {
         event.preventDefault();
-        window.location.href = "/index";
+        window.location.href = "index.html";
     });
 });
 
