@@ -87,7 +87,7 @@ npm passport passport-local
 ```
 npm i sequelize sequelize-cli
 ```
-
+```
 Create a database in MySQL. In this example, `stock_market_db` is used (refer to config.json).
 
 ## Getting Started
