@@ -10,7 +10,6 @@ $(document).ready(function () {
     type: "GET",
     url: `/api/external/stocks/${arrOfSymbolAndId[1]}`,
   }).then((allData) => {
-    console.log(allData);
     const name = allData.companyName;
     let company_name = name.split(" ");
     company_name[0] = company_name[0].replace(/,/g, "");
@@ -42,7 +41,6 @@ $(document).ready(function () {
       url: `/api/${arrOfSymbolAndId[1]}`,
       datatype: "json",
     }).then((responseFromAPI) => {
-      // console.log(responseFromAPI.companyLogo);
       printTheChart(responseFromAPI.companyLogo);
     });
   });
