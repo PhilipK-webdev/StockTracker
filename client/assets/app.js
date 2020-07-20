@@ -1,5 +1,3 @@
-
-
 $(document).ready(function () {
   // INIT FUNCTIONS
 
@@ -22,72 +20,52 @@ $(document).ready(function () {
     $("#welcomeText").hide();
     addStockUser(symbol).then((msg) => {
       if (msg === false) {
-<<<<<<< HEAD
-        M.toast({ html: `${symbol} already in watchlist!` })
-=======
         M.toast({ html: `${symbol} already in watchlist!` });
-        console.log("wtf");
->>>>>>> TracyVy-master
       } else {
         renderWatchList(symbol);
         M.toast({ html: `${symbol} successfully added!` });
       }
-<<<<<<< HEAD
-    })
-  })
-
-  // Button to add to watchlist table, launch requests to retreive close value, and add to user stocks
-  $("#addBtn").on("click", () => {
-    const symbol = $("#selected_option").html()
-    $(".highlight").show()
-    $("#welcomeText").hide()
-    addStockUser(symbol).then((msg) => {
-      if (msg === false) {
-        M.toast({ html: `${symbol} already in watchlist!` })
-=======
-      console.log("Success message", msg);
     });
   });
 
   // Button to add to watchlist table, launch requests to retreive close value, and add to user stocks
   $("#addBtn").on("click", () => {
     const symbol = $("#selected_option").html();
-
     $(".highlight").show();
     $("#welcomeText").hide();
     addStockUser(symbol).then((msg) => {
       if (msg === false) {
         M.toast({ html: `${symbol} already in watchlist!` });
->>>>>>> TracyVy-master
       } else {
         renderWatchList(symbol);
         M.toast({ html: `${symbol} successfully added!` });
       }
-    })
-    $("#autocomplete").val("")
-    $("#selected_option").text("")
-
-  })
+    });
+    $("#autocomplete").val("");
+    $("#selected_option").text("");
+  });
 
   // Button to remove line on watchlist and remove from user watchlist(in database)
   $(document).on("click", ".removeBtn", function (e) {
-    e.preventDefault()
-    const symbol = $(this).attr("symbol")
-    $(`#line-${symbol}`).remove()
-    M.toast({ html: `${symbol} removed from watchlist` })
-    deleteStockUser(symbol)
+    e.preventDefault();
+    const symbol = $(this).attr("symbol");
+    $(`#line-${symbol}`).remove();
+    M.toast({ html: `${symbol} removed from watchlist` });
+    deleteStockUser(symbol);
+  });
 
-  })
-
-  // Button to go to stockdetails page  
+  // Button to go to stockdetails page
 
   // FUNCTIONS
 
   // Function for initialization (slider and watchlist, handling 1st connection or not)
   const init = async () => {
-    if (window.location.href.endsWith("dashboard") || window.location.href.endsWith("dashboard#")) {
-      await slidesStart()
-      await loadWatchlist()
+    if (
+      window.location.href.endsWith("dashboard") ||
+      window.location.href.endsWith("dashboard#")
+    ) {
+      await slidesStart();
+      await loadWatchlist();
     }
 
     userStocks().then((res) => {
@@ -105,10 +83,10 @@ $(document).ready(function () {
   const slidesStart = () => {
     objStock().then(async (popularStock) => {
       for (i = 0; i < 5; i++) {
-        let symbol = popularStock[i].symbol
-        let stockValue = popularStock[i].iexClose
-        let companyParts = popularStock[i].companyName.split(" ")[0]
-        let company = companyParts.replace(",", "")
+        let symbol = popularStock[i].symbol;
+        let stockValue = popularStock[i].iexClose;
+        let companyParts = popularStock[i].companyName.split(" ")[0];
+        let company = companyParts.replace(",", "");
 
         let companyNews = await getNews(company); // { urlToImage: '', headerTitle: '' }
         const finalImage = companyNews.urlToImage;
@@ -199,8 +177,8 @@ $(document).ready(function () {
       $.ajax({
         type: "GET",
         url: `/find/${id}`,
-        dataType: "json"
-      }).then(res => {
+        dataType: "json",
+      }).then((res) => {
         const symbolReturn = res.map((symbol) => {
           if (symbol.symbol === symbolUser) {
             return symbol.symbol;
