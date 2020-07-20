@@ -20,28 +20,11 @@ $(document).ready(function () {
     $("#welcomeText").hide();
     addStockUser(symbol).then((msg) => {
       if (msg === false) {
-<<<<<<< HEAD
-        M.toast({ html: `${symbol} already in watchlist!` })
-=======
         M.toast({ html: `${symbol} already in watchlist!` });
->>>>>>> c1cf847d7c5e3acb844d4dc28ccfa0b3ca026692
       } else {
         renderWatchList(symbol);
         M.toast({ html: `${symbol} successfully added!` });
       }
-<<<<<<< HEAD
-    })
-  })
-
-  // Button to add to watchlist table, launch requests to retreive close value, and add to user stocks
-  $("#addBtn").on("click", () => {
-    const symbol = $("#selected_option").html()
-    $(".highlight").show()
-    $("#welcomeText").hide()
-    addStockUser(symbol).then((msg) => {
-      if (msg === false) {
-        M.toast({ html: `${symbol} already in watchlist!` })
-=======
     });
   });
 
@@ -53,7 +36,6 @@ $(document).ready(function () {
     addStockUser(symbol).then((msg) => {
       if (msg === false) {
         M.toast({ html: `${symbol} already in watchlist!` });
->>>>>>> c1cf847d7c5e3acb844d4dc28ccfa0b3ca026692
       } else {
         renderWatchList(symbol);
         M.toast({ html: `${symbol} successfully added!` });
