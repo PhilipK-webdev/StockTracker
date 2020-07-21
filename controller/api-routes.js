@@ -28,8 +28,6 @@ router.get("/api/users/:id/watchlist", (req, res) => {
             UserId: req.params.id,
         },
     }).then((userStocks) => {
-        console.log(userStocks);
-
         stocksArray = userStocks;
         res.json({ stocksArray });
     });
@@ -39,7 +37,6 @@ router.get("/api/users/:id/watchlist", (req, res) => {
 // example GET : http://localhost:3000/api/external/stocks/MSFT
 router.get("/api/external/stocks/:symbol", (req, res) => {
     const symbol = req.params.symbol;
-    console.log(symbol);
     seeOnestock(symbol)
         .then((stock) => res.json(stock))
         .catch((err) => res.send(err));

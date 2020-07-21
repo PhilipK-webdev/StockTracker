@@ -55,7 +55,6 @@ const seeAllUserStocks = (userSymbols) => {
             companyName: response.data.companyName,
             evolution: response.data.changePercent,
           });
-          console.log(response.data.iexClose);
         })
         .catch((err) => reject(err));
     });
@@ -76,7 +75,6 @@ const seeOnestock = (symbolName) => {
           companyName: response.data.companyName,
           evolution: response.data.changePercent,
         });
-        console.log(response.data.iexClose);
       })
       .catch((err) => reject(err));
   });

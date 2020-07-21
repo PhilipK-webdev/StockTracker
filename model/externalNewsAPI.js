@@ -13,11 +13,11 @@ const getTopHeadlines = (companyName) => {
             dataType: "json"
         })
             .then((articles) => {
-                resolve(articles.data)
-                console.log(articles.data);
+                resolve(articles.data);
+
             })
             .catch((err) => reject(err))
-    })
+    });
 }
 
 module.exports = { getTopHeadlines }
