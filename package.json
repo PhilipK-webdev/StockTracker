@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/PhilipK-webdev/StockTracker#readme",
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.2",
     "bcryptjs": "^2.4.3",
     "chart.js": "^2.9.3",
     "dotenv": "^8.2.0",
